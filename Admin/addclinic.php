@@ -1,5 +1,6 @@
 <html>
 <head>
+<?php session_start();?>
 <link rel="stylesheet" href="../Admin/adminmain.css"> 
 <title>Add Clinic</title>
 </head>
@@ -90,7 +91,6 @@
 </center>
 </div>
 <?php
-session_start();
 if(isset($_POST['logout'])){
 		session_unset();
 		session_destroy();
