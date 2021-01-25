@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="../main.css">
+<title>Locate Us</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <style>
 body,html{
@@ -9,6 +10,9 @@ body,html{
     background-attachment: fixed;
 	background-size: cover;
 }
+
+li:hover a {
+	 color: grey; }
 </style>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
@@ -48,7 +52,7 @@ function getDoctorday(val) {
 </script>
 <!--<body style="background-image:url(../images/yellowpage.jpg);background-repeat:no-repeat;background-attachment:fixed">-->
 <body>
-	<div class="header">
+<div class="header">
 		<ul>
 			<li style="float:left;border-right:none"><a href="ulogin.php" class="logo"><img src="../images/cal.png" width="30px" height="30px"><strong> Skylabs </strong>Appointment Booking System</a></li>
 			<!-- ditambah -->
@@ -57,20 +61,20 @@ function getDoctorday(val) {
 					<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
 					<li><a href="book.php">Book Now</a></li>
             <!-- end tambah-->
-			
-			<li><a href="ulogin.php">Home</a></li>
+            
+            <li><a href="ulogin.php">Home</a></li>
 		</ul>
 	</div>
 	<form action="ulocateusresult.php" method="post">
 	<div class="sucontainer" style="background-color:white">
 		<ul style="background-color:white">			
 			<label style="margin-left:-30px;color:black"><b>Search Doctor</b></label>
-			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px" class="form-control"></input>
+			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px;width:580px;" class="form-control"></input>
 			<div style="display:flex;justify-content:flex-end">
 			<button type="submit" style="position:center;margin-left:-30px" name="subd" value="Submit" class="btn btn-dark">Submit</button>
 			</div>
 		</ul>
-		<label style="font-size:20px;color:black" >City:</label><br>
+		<label style="font-size:20px;color:black; margin:4px;" >City:</label><br>
 		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select City</option>
 		<?php
@@ -83,17 +87,17 @@ function getDoctorday(val) {
 		}
 		?>
 		</select>
-        <br>
+        <br><br>
 	
-		<label style="font-size:20px;color:black" >Town:</label><br>
+		<label style="font-size:20px;color:black; margin:4px;" >Town:</label><br>
 		<select id="town-list" name="Town" onChange="getClinic(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Town</option>
-		</select><br>
+		</select><br><br>
 		
-		<label style="font-size:20px;color:black" >Clinic:</label><br>
+		<label style="font-size:20px;color:black; margin:4px;" >Clinic:</label><br>
 		<select id="clinic-list" name="Clinic" onChange="getDoctorday(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Clinic</option>
-		</select><br>
+		</select><br><br>
 		<div class="container">
 			<div style="display:flex;justify-content:flex-end">
 			<button type="submit" style="position:center" name="submit" value="Submit" class="btn btn-dark">Submit</button>
