@@ -37,6 +37,13 @@
                   <a href="showmanager.php">Show Manager</a>
                   </div>
           </li>
+		  <li class="dropdown" style="margin-top:13px">    
+                <a href="javascript:void(0)" class="dropbtn">Location</a>
+                  <div class="dropdown-content">
+                    <a href="addlocation.php">Add Location</a>
+                    <a href="showlocation.php">Show All Location</a>
+                  </div>
+          </li>
           <li  style="float:right; border-right:none; margin-top:13px"><a name="logout" href=../index.php>Logout</a></li>
 				</ul>
 </div>

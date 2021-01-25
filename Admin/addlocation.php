@@ -6,7 +6,7 @@ session_start();
 <link rel="stylesheet" href="adminmain.css"> 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Balsamiq+Sans:wght@700&display=swap" rel="stylesheet">
-<title>Home</title>
+<title>Add Location</title>
 </head>
 
 <body style="background-image:url(../images/doctordesk.jpg); height: 100%; background-repeat: no-repeat;">
