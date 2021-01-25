@@ -22,7 +22,7 @@ tr,td{
 	background-color: white;
     color: black;
 }
-body { background:#295675 url('dreamcodes/bg_images/color/c4.jpg') no-repeat center top; }
+body { background:#295675 url('dreamcodes/bg_images/color/c4.jpg') no-repeat center top; height: 120%;}
 </style>
 
 <body>
