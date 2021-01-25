@@ -83,8 +83,12 @@ session_start();
     <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z0-9_]+)*$" name="location" id="location" placeholder="Enter Location" required><br>
     </div>
     <div class="form-group  row feilds ">
-    <label for="distance">Distance</label>
-    <input type="number" name="distance" step=".01" id="distance" placeholder="Enter Distance" required><br>
+    <label for="distance">Distance (KM)</label>
+    <input type="number" name="distance" step=".01" id="distance" placeholder="Enter Distance in KM" required><br>
+    </div>
+    <div class="form-group  row feilds ">
+    <label for="distance">Fare (MYR)</label>
+    <input type="number" name="fare" step=".01" id="fare" placeholder="Enter Fare (All Fare is in MYR)" required><br>
     </div>
     <div class="form-group   feilds ">
     <label  for="available">Make Available</label><br><br>
@@ -110,9 +114,10 @@ function alocation()
             $city=$_POST['city'];
             $location = isset($_POST['location'])?$_POST['location']:'';
             $distance = isset($_POST['distance'])?$_POST['distance']:'';
+            $fare = isset($_POST['fare'])?$_POST['fare']:'';
             $available = isset($_POST['available'])?$_POST['available']:'';
 
-            $sql = "INSERT INTO location(`city`, `name`, `distance`, `is_available`) VALUES('".$city."', '".$location."', '".$distance."', '".$available."')";
+            $sql = "INSERT INTO location(`city`, `name`, `distance`, `total_fare`, `is_available`) VALUES('".$city."', '".$location."', '".$distance."', '".$fare."', '".$available."')";
             
             if (mysqli_query($conn, $sql)) 
 		    {
@@ -126,7 +131,7 @@ function alocation()
 
 if (isset($_POST['submit']))
 {
-    if(!empty($_POST['city'])&&!empty($_POST['location'])&&!empty($_POST['distance'])&&!empty($_POST['available'])){
+    if(!empty($_POST['city'])&&!empty($_POST['location'])&&!empty($_POST['distance'])&&!empty($_POST['fare'])&&!empty($_POST['available'])){
 				alocation();
 		} else {
 			echo '<script>alert("Please fill in all the columns!")</script>';
