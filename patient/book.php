@@ -83,8 +83,8 @@ function getDay(val) {
 		
 		<label style="color:black" ><b>Gender</b></label><br><br>
 		<input type="radio" name="gender" value="female">Female
-		<input type="radio" name="gender" value="male">Male
-		<input type="radio" name="gender" value="other">Other<br><br>
+		<input type="radio" name="gender" value="male">Male <br><br>
+		
 	
 		<label style="color:black"><b>City</b></label><br><br>
 		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
