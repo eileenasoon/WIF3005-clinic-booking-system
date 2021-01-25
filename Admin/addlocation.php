@@ -1,10 +1,15 @@
 <html>
 <head>
-<?php session_start();?>
-<link rel="stylesheet" href="../Admin/adminmain.css"> 
-<title>Add Clinic</title>
+<?php
+session_start();	
+?>
+<link rel="stylesheet" href="adminmain.css"> 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Balsamiq+Sans:wght@700&display=swap" rel="stylesheet">
+<title>Add Location</title>
 </head>
-<body style="background-image:url(../images/doctordesk.jpg); height: 135%; background-repeat: no-repeat;">
+
+<body style="background-image:url(../images/doctordesk.jpg); height: 100%; background-repeat: no-repeat;">
 <div class="header">
 				<ul>
 					<li style="float:left;border-right:none;margin-bottom:5px"><a href="mainpage.php" class="logo"><img src="../images/cal.png" width="30px" height="30px"><strong> Skylabs </strong>Appointment Booking System</a></li>
@@ -37,7 +42,7 @@
                   <a href="showmanager.php">Show Manager</a>
                   </div>
           </li>
-		  <li class="dropdown" style="margin-top:13px">    
+          <li class="dropdown" style="margin-top:13px">    
                 <a href="javascript:void(0)" class="dropbtn">Location</a>
                   <div class="dropdown-content">
                     <a href="addlocation.php">Add Location</a>
@@ -49,19 +54,12 @@
 </div>
 
 <div class="container">
-<center><h1>ADD CLINIC</h1><hr><br>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-
-	<label style="color:black"><b>Name: </b></label><br>
-    	<input type="text" placeholder="Enter Clinic Name" name="name" minlength="5" maxlength="45" required><br>
-  
-	<label style="color:black"><b>Address: </b></label><br>
-  		<input type="text" placeholder="Enter Address" name="address" required><br>
-
-	<label style="color:black"><b>Town: </b></label><br>
-  		<input type="text" placeholder="Enter Town" name="town" required><br>
-		  
-	<label style="color:black"><b>City: </b></label><br>
+<center>
+  <h1>ADD LOCATION</h1><hr><br>
+  <section>
+  <form action="addlocation.php"  method="post">
+  <div class="form-group  row feilds ">
+  	<label style="color:black"><b>City: </b></label><br>
 		<select name="city" required>
 			<option selected disabled>Choose City</option>
 			<option value="Johor">Johor</option>
@@ -81,72 +79,66 @@
 			<option value="Labuan">Labuan</option>
 			<option value="Putrajaya">Putrajaya</option>
 		</select><br>
-
-	<label style="color:black"><b>Contact No: </b></label><br>
-		<input type="text" placeholder="Contact Number (e.g. 019*******)" name="contact" minlength="9" maxlength="12" pattern="[0-9]{9,12}" required><br>
-
-  	<button type="submit" name="Submit">REGISTER</button>
-</form>
-</font></b>
-</center>
+    <label for="location" >Location</label>
+    <input type="text" pattern="^[a-zA-Z_]+( [a-zA-Z0-9_]+)*$" name="location" id="location" placeholder="Enter Location" required><br>
+    </div>
+    <div class="form-group  row feilds ">
+    <label for="distance">Distance</label>
+    <input type="number" name="distance" step=".01" id="distance" placeholder="Enter Distance" required><br>
+    </div>
+    <div class="form-group   feilds ">
+    <label  for="available">Make Available</label><br><br>
+    <label  for="yes">YES</label>
+    <input class="" type="radio" name="available" id="available" value=1 required>
+    <label  for="no">NO</label>
+    <input class="" type="radio" name="available" id="available" value=0 required>
+    </div><br>
+    
+    <div class="form-group ">
+        <input type="submit" id="add" name="submit" value="Add Location">
+    </div>
+    </form>
+  </section>
+  </center>  
 </div>
+
 <?php
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		header( "Refresh:1; url=../index.php"); 
-	}
-	function newclinic()
-	{
-		include '../dbconfig.php';
-			
-			$name=$_POST['name'];
-			$town=$_POST['town'];
-			$city=$_POST['city'];
-			$contact=$_POST['contact'];
-			$address=$_POST['address'];
-			$sql = "INSERT INTO clinic (Name, Address, Town, City, Contact, mid) VALUES ('$name','$address','$town','$city','$contact','')";
-	
-		if (mysqli_query($conn, $sql)) 
-		{
-			echo '<script>alert("Record created successfully!! Refreshing....");
-			window.location.href="addclinic.php";</script>';
-		} 
-		else
-		{
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-		}
-	}
-	function checkClinicName()
-	{
-		include '../dbconfig.php';
-		$cname=$_POST['name'];
-		$sql= "SELECT * FROM clinic WHERE Name = '$name'";
-	
-		$result=mysqli_query($conn,$sql);
-	
-			if(mysqli_num_rows($result)!=0)
-		   {
-			echo '<script>alert("Clinic already exists!")</script>';
-		   }
-		else 
-			if(isset($_POST['Submit']))
-		{ 
-			newclinic();
-		}
-	
-		
-	}
-	if(isset($_POST['Submit']))
-	{
-		if(!empty($_POST['name'])&&!empty($_POST['address'])&&!empty($_POST['town'])&&!empty($_POST['city']) && !empty($_POST['contact'])){
-				checkClinicName();
+
+function alocation()
+    { 
+            include '../dbconfig.php';
+            $city=$_POST['city'];
+            $location = isset($_POST['location'])?$_POST['location']:'';
+            $distance = isset($_POST['distance'])?$_POST['distance']:'';
+            $available = isset($_POST['available'])?$_POST['available']:'';
+
+            $sql = "INSERT INTO location(`city`, `name`, `distance`, `is_available`) VALUES('".$city."', '".$location."', '".$distance."', '".$available."')";
+            
+            if (mysqli_query($conn, $sql)) 
+		    {
+                echo  '<script>alert("Location Added Successful")</script>';
+            } 
+            else
+            {
+                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            }
+    }
+
+if (isset($_POST['submit']))
+{
+    if(!empty($_POST['city'])&&!empty($_POST['location'])&&!empty($_POST['distance'])&&!empty($_POST['available'])){
+				alocation();
 		} else {
 			echo '<script>alert("Please fill in all the columns!")</script>';
 		}
-	}
-	
-	?>
+    
+  }
 
+if(isset($_POST['logout'])){
+	session_unset();
+	session_destroy();
+	header( "Refresh:1; url=../index.php"); 
+}
+?>
 </body>
 </html>

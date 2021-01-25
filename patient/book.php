@@ -2,6 +2,7 @@
 <head>
 <link rel="stylesheet" href="../main.css">
 <title>Book Now</title>
+<?php session_start();?>
 <style>
 body,html{
 	background-image:url(../images/bookback.jpg);
@@ -71,7 +72,6 @@ function getDay(val) {
 		</ul>
 	</div>
 	<form action="book.php" method="post">
-
 	<!--<div class="sucontainer" style="background-image:url(images/bookback.jpg)"> -->
 	<div class="sucontainer" style="background-color:white; border: 2px solid black; border-radius: 5px; padding: 12px 20px; left:25%; right:25%;">
 
@@ -125,7 +125,7 @@ function getDay(val) {
 			<button type="submit" style="float:right" name="submit" value="Submit">Submit</button>
 		</div>
 <?php
-session_start();
+// session_start();
 if(isset($_POST['submit']))
 {
 		
@@ -163,13 +163,11 @@ if(isset($_POST['submit']))
 			else
 			{
 				if (mysqli_query($conn, $sql)) 
-				{
-						//echo "<h2>Booking successful!! Redirecting to home page....</h2>";
-					//	header( "Refresh:2; url=ulogin.php");
-					echo '<script>alert("Booking successful!! Redirecting to home page....");
-					window.location.href="ulogin.php";</script>';
+				{ 
+				echo '<script>alert("Booking successful!! Redirecting to home page...."); 
+				  window.location.href="ulogin.php";</script>';
 
-				} 
+				 } 
 				else
 				{
 					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
