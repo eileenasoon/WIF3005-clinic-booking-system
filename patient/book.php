@@ -1,6 +1,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="../main.css">
+<title>Book Now</title>
+<?php session_start();?>
 <style>
 body,html{
 	background-image:url(../images/bookback.jpg);
@@ -70,7 +72,6 @@ function getDay(val) {
 		</ul>
 	</div>
 	<form action="book.php" method="post">
-
 	<!--<div class="sucontainer" style="background-image:url(images/bookback.jpg)"> -->
 	<div class="sucontainer" style="background-color:white; border: 2px solid black; border-radius: 5px; padding: 12px 20px; left:25%; right:25%;">
 
@@ -82,8 +83,8 @@ function getDay(val) {
 		
 		<label style="color:black" ><b>Gender</b></label><br><br>
 		<input type="radio" name="gender" value="female">Female
-		<input type="radio" name="gender" value="male">Male
-		<input type="radio" name="gender" value="other">Other<br><br>
+		<input type="radio" name="gender" value="male">Male <br><br>
+		
 	
 		<label style="color:black"><b>City</b></label><br><br>
 		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
@@ -124,7 +125,7 @@ function getDay(val) {
 			<button type="submit" style="float:right" name="submit" value="Submit">Submit</button>
 		</div>
 <?php
-session_start();
+// session_start();
 if(isset($_POST['submit']))
 {
 		
@@ -162,13 +163,11 @@ if(isset($_POST['submit']))
 			else
 			{
 				if (mysqli_query($conn, $sql)) 
-				{
-						//echo "<h2>Booking successful!! Redirecting to home page....</h2>";
-					//	header( "Refresh:2; url=ulogin.php");
-					echo '<script>alert("Booking successful!! Redirecting to home page....");
-					window.location.href="ulogin.php";</script>';
+				{ 
+				echo '<script>alert("Booking successful!! Redirecting to home page...."); 
+				  window.location.href="ulogin.php";</script>';
 
-				} 
+				 } 
 				else
 				{
 					echo "Error: " . $sql . "<br>" . mysqli_error($conn);

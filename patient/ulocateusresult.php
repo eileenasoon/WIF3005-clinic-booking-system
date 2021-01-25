@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="../main.css">
+<title>Locate Us</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <style>
 body,html{
@@ -12,7 +13,6 @@ body,html{
 </style>
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<title>Locate Us</title>
 </head><?php include "../dbconfig.php"; ?>
 <script>
 function getTown(val) {
@@ -46,7 +46,8 @@ function getDoctorday(val) {
 	});
 }
 </script>
-<!--<body style="background-image:url(../images/yellowpage.jpg);background-repeat:no-repeat;background-attachment:fixed">-->
+
+<!--<body style="background-image:url(../images/yellowpage.jpg);height: 110%; background-repeat: no-repeat;" > -->
 <body>
 	<div class="header">
 		<ul>
@@ -57,8 +58,8 @@ function getDoctorday(val) {
 					<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
 					<li><a href="book.php">Book Now</a></li>
             <!-- end tambah-->
-			
-			<li><a href="ulogin.php">Home</a></li>
+            
+            <li><a href="ulogin.php">Home</a></li>
 		</ul>
 	</div>
 	<form action="ulocateusresult.php" method="post">
@@ -107,7 +108,7 @@ if(isset($_POST['subd']))
 		if(!empty($_POST['doctorname']))
 		{
 			$doctor=$_POST['doctorname'];
-			$sql1 = "Select * from Doctor where UPPER(name) like UPPER('%".$doctor."%')";
+			$sql1 = "Select * from doctor where UPPER(name) like UPPER('%".$doctor."%')";
 			$result1=mysqli_query($conn, $sql1);  
 			while($row1 = mysqli_fetch_array($result1))
 			{
@@ -144,7 +145,7 @@ if(isset($_POST['submit']))
 {
 		include '../dbconfig.php';
 		$cid=$_POST['Clinic'];
-		$sql1 = "Select * from Clinic where cid=$cid";
+		$sql1 = "Select * from clinic where cid=$cid";
 		$result1=mysqli_query($conn, $sql1);  
 		$row1 = mysqli_fetch_array($result1);
 		$sql2 = "Select name,gender,specialization,contact from doctor where did in (select did from doctor_availability where cid=$cid);";
@@ -158,6 +159,13 @@ if(isset($_POST['submit']))
 		echo "<p class='card-text'>Specialization: ".$row2['specialization']."</p>";
 		echo "<p class='card-text'>Doctor Contact: ".$row2['contact']."</p>"; 
 }		echo "<div>";
+
+if(isset($_POST['logout']))
+{
+	session_unset();
+	session_destroy();
+	header( "Refresh:1; url=../index.php"); 
+}
 ?>
 	</form>
 </body>

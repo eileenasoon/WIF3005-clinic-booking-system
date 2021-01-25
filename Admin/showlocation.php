@@ -1,31 +1,27 @@
-<!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="../Admin/adminmain.css"> 
-<style>
-table{
-    width: 75%;
-    border-collapse: collapse;
-	border: 4px solid black;
-    padding: 5px;
-	font-size: 25px;
-}
-
-th{
-border: 4px solid black;
-	background-color: #4CAF50;
-    color: white;
-	text-align: left;
-}
-tr,td{
-	border: 4px solid black;
-	background-color: white;
-    color: black;
-}
-</style>
-
+<link rel="stylesheet" href="adminmain.css"> 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Balsamiq+Sans:wght@700&display=swap" rel="stylesheet">
+<title>Home</title>
 </head>
-<body style="background-image:url(../images/doctordesk.jpg); height: 135%; background-repeat: no-repeat;">
+<?php 
+include '../dbconfig.php';
+session_start();
+?>
+<script>
+function getTown(val) {
+	$.ajax({
+	type: "POST",
+	url: "getcity.php",
+	data:'countryid='+val,
+	success: function(data){
+		$("#town-list").html(data);
+	}
+	});
+}
+</script>
+<body style="background-image:url(../images/doctordesk.jpg); height: 100%; background-repeat: no-repeat;">
 <div class="header">
 				<ul>
 					<li style="float:left;border-right:none;margin-bottom:5px"><a href="mainpage.php" class="logo"><img src="../images/cal.png" width="30px" height="30px"><strong> Skylabs </strong>Appointment Booking System</a></li>
@@ -65,47 +61,34 @@ tr,td{
                     <a href="showlocation.php">Show All Location</a>
                   </div>
           </li>
+          
           <li  style="float:right; border-right:none; margin-top:13px"><a name="logout" href=../index.php>Logout</a></li>
-	</ul>
+				</ul>
 </div>
 <div class="container">
-<title>List of Managers</title>
-<center><h1>SHOW MANAGER</h1><hr>
-<?php
-include '../dbconfig.php';
-session_start();
-$sql="SELECT * FROM manager order by MID ASC";
-$result = mysqli_query($conn,$sql);
-
-echo "<br><h2>TOTAL MANAGERS: <b>".mysqli_num_rows($result)."</b></h2><br>";
-
-echo "<table>
-<tr>
-<th>MID</th>
-<th>Name</th>
-<th>DOB</th>
-<th>Address</th>
-<th>Contact</th>
-<th>Region</th>
-</tr>";
-while($row = mysqli_fetch_array($result)) {
-    echo "<tr>";
-	echo "<td>" . $row['mid'] . "</td>";
-    echo "<td>" . $row['name'] . "</td>";
-    echo "<td>" . $row['dob'] . "</td>";
-	echo "<td>" . $row['address'] . "</td>";
-	echo "<td>" . $row['contact'] . "</td>";
-	echo "<td>" . $row['region'] . "</td>";
-    echo "</tr>";
-}
-echo "</table>";
-mysqli_close($conn);
-if(isset($_POST['logout'])){
-		session_unset();
-		session_destroy();
-		header( "Refresh:1; url=../index.php"); 
-	}
-?>
+<center><h1>SHOW LOCATION</h1><hr><br>
+<label style="font-size:20px;color:black" >City:</label><br>
+		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
+		<option value="">Select City</option>
+		<?php
+		$sql1="SELECT distinct(city) FROM location";
+         $results=$conn->query($sql1); 
+		while($rs=$results->fetch_assoc()) { 
+		?>
+		<option value="<?php echo $rs["city"]; ?>"><?php echo $rs["city"]; ?></option>
+		<?php
+		}
+		?>
+		</select>
 </div>
+
+
+<?php	
+	if(isset($_POST['logout'])){
+	session_unset();
+	session_destroy();
+	header( "Refresh:1; url=../index.php"); 
+}
+?>
 </body>
 </html>
