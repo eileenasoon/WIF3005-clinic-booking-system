@@ -69,7 +69,7 @@ function getDoctorday(val) {
 	<div class="sucontainer" style="background-color:white">
 		<ul style="background-color:white">			
 			<label style="margin-left:-30px;color:black"><b>Search Doctor</b></label>
-			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px" class="form-control"></input>
+			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px;width:580px;" class="form-control"></input>
 			<div style="display:flex;justify-content:flex-end">
 			<button type="submit" style="position:center;margin-left:-30px" name="subd" value="Submit" class="btn btn-dark">Submit</button>
 			</div>

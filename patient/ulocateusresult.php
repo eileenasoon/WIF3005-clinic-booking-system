@@ -68,12 +68,12 @@ function getDoctorday(val) {
 	<div class="sucontainer" style="background-color:white">
 		<ul style="background-color:white">			
 			<label style="margin-left:-30px;color:black"><b>Search Doctor</b></label>
-			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px" class="form-control"></input>
+			<input type="text" name="doctorname" placeholder="Enter Doctor Name" style="margin-left:-30px;width:580px;" class="form-control"></input>
 			<div style="display:flex;justify-content:flex-end">
 			<button type="submit" style="position:center;margin-left:-30px" name="subd" value="Submit" class="btn btn-dark">Submit</button>
 			</div>
 		</ul>
-		<label style="font-size:20px;color:black" >City:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >City:</label><br>
 		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select City</option>
 		<?php
@@ -86,17 +86,17 @@ function getDoctorday(val) {
 		}
 		?>
 		</select>
-        <br>
+        <br><br>
 	
-		<label style="font-size:20px;color:black" >Town:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >Town:</label><br>
 		<select id="town-list" name="Town" onChange="getClinic(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Town</option>
-		</select><br>
+		</select><br><br>
 		
-		<label style="font-size:20px;color:black" >Clinic:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >Clinic:</label><br>
 		<select id="clinic-list" name="Clinic" onChange="getDoctorday(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Clinic</option>
-		</select><br>
+		</select><br><br>
 		<div class="container">
 			<div style="display:flex;justify-content:flex-end">
 			<button type="submit" style="position:center" name="submit" value="Submit" class="btn btn-dark">Submit</button>
