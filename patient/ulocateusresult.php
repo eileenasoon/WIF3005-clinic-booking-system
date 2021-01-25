@@ -10,8 +10,10 @@ body,html{
     background-attachment: fixed;
 	background-size: cover;
 }
-</style>
 
+li:hover a {
+	 color: grey; }
+</style>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 </head><?php include "../dbconfig.php"; ?>
 <script>
