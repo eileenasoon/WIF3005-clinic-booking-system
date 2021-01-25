@@ -75,7 +75,7 @@ include '../dbconfig.php';
 session_start();
 $sql="SELECT * FROM manager order by MID ASC";
 $result = mysqli_query($conn,$sql);
-echo "<br><h2>TOTAL MANAGERS IN DATABASE=<b>".mysqli_num_rows($result)."</b></h2><br>";
+echo "<br><h2>Total Manager=<b>".mysqli_num_rows($result)."</b></h2><br>";
 echo "<table>
 <tr>
 <th>MID</th>
