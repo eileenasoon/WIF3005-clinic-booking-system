@@ -11,6 +11,7 @@
 					<li><a name ="logout" type="submit" href=../index.php>Logout</a></li>
 					
 					<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
+					<li><a href="dashpatient.php">Dashboard Ride</a></li>
 					<li><a href="book.php">Book Now</a></li>
 					<li><a href="ulogin.php">Home</a></li>
 				</ul>
