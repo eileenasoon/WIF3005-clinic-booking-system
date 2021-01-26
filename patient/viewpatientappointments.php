@@ -43,6 +43,7 @@ body,html{
 					
 					<li><a name ="logout" href=../index.php>Logout</a></li>
 					<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
+					 <li><a href="dashpatient.php">Dashboard Ride</a></li>
 					<li><a href="book.php">Book Now</a></li>
 					<li><a href="ulogin.php">Home</a></li>
 				</ul>
@@ -105,6 +106,16 @@ if(isset($_POST['submit']))
 		$updatequery="update book set Status='Cancelled by Patient' where username='$username' and timestamp= '$timestamp'";
 				if (mysqli_query($conn, $updatequery)) 
 				{
+
+					$sql = "SELECT * FROM book WHERE username='$username' and timestamp= '$timestamp'";
+					$result = $conn->query($sql);
+					$row = $result->fetch_assoc();
+					$idcancel = $row['ride_id'];
+
+					$sql = "UPDATE ride SET status='2' WHERE id=$idcancel";
+					$result = $conn->query($sql);
+
+
 					echo '<script>alert("Appointment Cancelled successfully!");
 					window.location.href="ulogin.php";</script>';
 					

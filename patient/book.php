@@ -66,6 +66,7 @@ function getDay(val) {
 			<li style="float:left;border-right:none"><a href="ulogin.php" class="logo"><img src="../images/cal.png" width="30px" height="30px"><strong> Skylabs </strong>Appointment Booking System</a></li>
 			<li><a name ="logout" href=../index.php>Logout</a></li>
 			<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
+			<li><a href="dashpatient.php">Dashboard Ride</a></li>
 			<li><a href="book.php">Book Now</a></li>
 			<li><a href="ulogin.php">Home</a></li>
 			
@@ -143,6 +144,7 @@ if(isset($_POST['submit']))
 		$status="Booking Registered.Wait for the update";
 		$timestamp=date('Y-m-d H:i:s');
 		$sql = "INSERT INTO book (Username,Fname,Gender,CID,DID,DOV,Timestamp,Status) VALUES ('$username','$fname','$gender','$cid','$did','$dov','$timestamp','$status') ";
+		
 		if(!empty($_POST['fname'])&&!empty($_POST['gender'])&&!empty($_SESSION['username'])&&!empty($_POST['Clinic'])&&!empty($_POST['Doctor']) && !empty($_POST['dov']))
 		{
 			$checkday = strtotime($dov);

@@ -3,6 +3,7 @@
 	<link rel="stylesheet" href="../main.css">
 	<title>Home</title>
 	<?php session_start(); include "../dbconfig.php";?>
+
 </head>
 <body style ="background-image:url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c4.jpg);">
 <div class="header">
@@ -12,6 +13,7 @@
 					<li><a name ="logout" type="submit" href=../index.php>Logout</a></li>
 					
 					<li><a href="viewpatientappointments.php">Show/Cancel Appointment</a></li>
+					<li><a href="dashpatient.php">Dashboard Ride</a></li>
 					<li><a href="book.php">Book Now</a></li>
 					<li><a href="ulogin.php">Home</a></li>
 				</ul>
@@ -79,16 +81,16 @@
 			$sql = "SELECT * FROM location WHERE is_available=1";
 			$result = $conn->query($sql);
 			$appr=array();
+			$d1=0;
+			$d2=0;
 			while($row = $result->fetch_assoc()) {
 				// array_push($appr, $row);
-				$d1=0;
-				$d2=0;
-				
-					if($row['name']==$pickup)
+			
+					if($row['name']==trim($pickup))
 					{
 						$d1=$row['distance'];
 					}
-					if($row['name']==$drop)
+					if($row['name']==trim($drop))
 					{
 						$d2=$row['distance'];
 					}
@@ -110,7 +112,7 @@
 					$fare=5+(1.80*$tdist);
 				}
 				elseif ($totaldist>25) {
-					$tdist= $tdist-25;
+					$tdist= $tdist-25;  //1
 					$fare=8+(1.50*$tdist);
 				}
 			}
@@ -133,7 +135,7 @@
 			}
 			if($cabtype =='CedRoyal'){
 				if($totaldist<=5){
-					$fare=3.50+(4.50*$dist);
+					$fare=3.50+(4.50*$tdist);
 				}
 				elseif ($totaldist<=15) {
 					$tdist= $tdist-5;
@@ -150,7 +152,7 @@
 			}
 			if($cabtype =='CedSUV'){
 				if($totaldist<=5){
-					$fare=3.80+(4.50*$dist);
+					$fare=3.80+(4.50*$tdist);
 				}
 				elseif ($totaldist<=15) {
 					$tdist= $tdist-5;
@@ -167,22 +169,26 @@
 			}
 
 			$result=array(
-				'fare'=>$fare,'dist'=>$dist
+				'fare'=>$fare,'dist'=>$totaldist
 			);
 			echo json_encode($result) ;
-			
-			
-			
-			date_default_timezone_set('asia/kolkata');
+
+			date_default_timezone_set('Asia/Kuala_Lumpur');
 			$datetime = date("Y-m-d h:i");
+
 
 			$sql = "INSERT INTO ride(`ride_date`,`from_distance`,`to_distance`,`cab_type`,`total_distance`,`total_fare`,`status`,`username`) VALUES('".$datetime."','".$pickup."','".$drop."','".$cabtype."','".$totaldist."','".$fare."',1,'".$username."'); 
 			SET @last_id_in_ride = LAST_INSERT_ID();
 			UPDATE book set ride_id = @last_id_in_ride, ride_status = 1 ORDER BY `id` DESC LIMIT 1";  
 			if (mysqli_multi_query($conn, $sql)) 
 			{ 
-			echo '<script>alert("Booking successful!! Redirecting to appointment page...."); 
-			  window.location.href="viewpatientappointments.php";</script>';
+
+				$last_id = $conn->insert_id;
+				$sql = "UPDATE book set ride_id = $last_id, ride_status = 1 ORDER BY `id` DESC LIMIT 1";
+				mysqli_query($conn, $sql);
+
+				echo '<script>alert("Booking successful!! Redirecting to appointment page...."); 
+			 window.location.href="viewpatientappointments.php";</script>';
 
 			 } 
 			else
