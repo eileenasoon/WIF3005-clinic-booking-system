@@ -112,11 +112,10 @@ if(isset($_POST['Submit']))
 	$mid=$_POST['manager'];
 	$sql = "DELETE FROM manager_clinic WHERE CID= $cid AND MID= $mid";
 	$sql1="update clinic set MID = 0 where MID= $mid";
-
+	
 	if (mysqli_query($conn, $sql))
 		{
-		echo "Record deleted successfully in manager_clinic table.Refreshing....";
-		header( "Refresh:2; url=deletemanagerclinic.php");
+		echo '<script>alert("Record deleted successfully in manager clinic table.")</script>';
 		}
 	else
 		{
@@ -124,14 +123,13 @@ if(isset($_POST['Submit']))
 		}
 	if (mysqli_query($conn, $sql1)) 
 				{
-							echo "<h2>Record created successfully( CID=$cid MID=$mid )in CLINIC TABLE!!</h2>";
-							echo "Please wait...Refreshing...";
-							header( "Refresh:2; url=deletemanagerclinic.php");
+							$result = "<h2>Record created successfully( CID=$cid MID=$mid )in CLINIC TABLE!!</h2>";
+							$result = "Please wait...Refreshing...";
 
 				} 
 				else
 				{
-					echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
+					$result = "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 				}
 }
 
