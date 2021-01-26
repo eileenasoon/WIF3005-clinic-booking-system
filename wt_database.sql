@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 25, 2021 at 08:01 AM
+-- Generation Time: Jan 25, 2021 at 11:33 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -82,7 +82,8 @@ CREATE TABLE `clinic` (
 INSERT INTO `clinic` (`cid`, `name`, `address`, `town`, `city`, `contact`, `mid`) VALUES
 (1, 'Clinic', 'XYZ apartment, CST', 'CST', 'Mumbai', 9999988888, '1'),
 (2, 'Klinik Pelangi', '49 Jalan Lembah 4', 'Bandar Seri Alam', 'Johor', 1110742106, ''),
-(4, 'Klinik Penawar', 'Jalan Perling 9 ', 'Cheras', 'Kuala Lumpur', 25267637, '');
+(4, 'Klinik Penawar', 'Jalan Perling 9 ', 'Cheras', 'Kuala Lumpur', 25267637, ''),
+(5, 'Klinik K.J. Lim', ' Jalan Prima SG 3/2, Prima Seri Gombak, 68100 Batu Caves, Selangor', 'Gombak', 'Selangor', 123456789, '2');
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,8 @@ INSERT INTO `doctor` (`did`, `name`, `gender`, `dob`, `experience`, `specializat
 (1, 'doctor', 'male', '1980-01-01', 10, 'Orthodontist', 9999999999, 'XYZ tower, CST', 'doctor', 'doctor', 'Mumbai'),
 (3, 'Aminah', 'female', '2021-01-02', 2, 'hahahaha', 75768574, '49 Jalan Lembah 4, Bandar Seri Alam', 'aminah', '1234567890', 'Johor'),
 (4, 'Salmah', 'female', '2021-01-06', 10, 'hahaha', 9102838273, 'Johor Bahru', 'salmah', '1234567890', 'Johor'),
-(0, 'Eileena', 'female', '1998-02-04', 10, 'Neurologists', 145216585, 'No 43 Jalan 13/23B', 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOO', 'Kuala Lumpur');
+(5, 'Eileena', 'female', '1998-02-04', 10, 'Neurologists', 145216585, 'No 43 Jalan 13/23B', 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOO', 'Kuala Lumpur'),
+(6, 'Ali bin Abu', 'male', '2000-01-01', 10, 'Allergists', 145216585, 'No 43 Jalan 13/23B', 'user1', '$2y$10$7oIL/Um9pmoOd8KWgMAu8eQ', 'Kuala Lumpur');
 
 -- --------------------------------------------------------
 
@@ -140,7 +142,6 @@ INSERT INTO `doctor_availability` (`cid`, `did`, `day`, `starttime`, `endtime`) 
 (1, 1, 'Tuesday', '14:00:00', '18:00:00'),
 (1, 1, 'Wednesday', '06:21:00', '00:23:00'),
 (1, 1, 'Wednesday', '14:00:00', '18:00:00'),
-(2, 3, 'Monday', '10:00:00', '22:00:00'),
 (2, 3, 'Thursday', '10:00:00', '22:00:00'),
 (2, 3, 'Tuesday', '10:00:00', '22:00:00'),
 (2, 3, 'Wednesday', '10:00:00', '22:00:00'),
@@ -161,17 +162,19 @@ CREATE TABLE `location` (
   `city` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `distance` varchar(50) NOT NULL,
-  `is_available` tinyint(1) NOT NULL
+  `total_fare` varchar(50) NOT NULL,
+  `is_available` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `location`
 --
 
-INSERT INTO `location` (`id`, `city`, `name`, `distance`, `is_available`) VALUES
-(1, 'Johor', 'Bukit Dahlia', '4', 1),
-(2, 'Kuala Lumpur', 'Setapak', '19', 1),
-(3, 'Kuala Lumpur', 'Cheras', '1', 1);
+INSERT INTO `location` (`id`, `city`, `name`, `distance`, `total_fare`, `is_available`) VALUES
+(6, 'Kuala Lumpur', 'Cheras', '1', '3', 1),
+(7, 'Kuala Lumpur', 'Petaling Jaya', '20', '15', 1),
+(8, 'Kuala Lumpur', 'Bangsar', '10', '10', 1),
+(9, 'Kuala Lumpur', 'Ampang', '26', '26', 1);
 
 -- --------------------------------------------------------
 
@@ -196,7 +199,8 @@ CREATE TABLE `manager` (
 --
 
 INSERT INTO `manager` (`mid`, `name`, `gender`, `dob`, `contact`, `address`, `username`, `password`, `region`) VALUES
-(1, 'Manager', 'male', '1990-01-01', 8888899999, 'XYZ complex CST', 'manager', 'manager', 'Mumbai');
+(1, 'Manager', 'male', '1990-01-01', 8888899999, 'XYZ complex CST', 'manager', 'manager', 'Mumbai'),
+(2, 'Arisya Athilah', 'female', '1998-07-17', 145216585, 'Jalan 1/A Gombak', 'arisya', '$2y$10$JzXFqa/iHbZe/HkUY4YKqu1', 'Selangor');
 
 -- --------------------------------------------------------
 
@@ -214,7 +218,8 @@ CREATE TABLE `manager_clinic` (
 --
 
 INSERT INTO `manager_clinic` (`cid`, `mid`) VALUES
-(1, 1);
+(1, 1),
+(5, 2);
 
 -- --------------------------------------------------------
 
@@ -246,6 +251,35 @@ INSERT INTO `patient` (`name`, `gender`, `dob`, `contact`, `email`, `username`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `ride`
+--
+
+CREATE TABLE `ride` (
+  `ride_id` int NOT NULL,
+  `ride_date` varchar(20) NOT NULL,
+  `from_distance` varchar(50) NOT NULL,
+  `to_distance` varchar(50) NOT NULL,
+  `cab_type` varchar(20) NOT NULL,
+  `total_distance` varchar(50) NOT NULL,
+  `total_fare` varchar(50) NOT NULL,
+  `status` int NOT NULL,
+  `customer_user_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ride`
+--
+
+INSERT INTO `ride` (`ride_id`, `ride_date`, `from_distance`, `to_distance`, `cab_type`, `total_distance`, `total_fare`, `status`, `customer_user_id`) VALUES
+(86, '2021-01-26 09:26', 'Cheras', 'Petaling Jaya', 'CedRoyal', '20', '3.5', 1, 10),
+(87, '2021-01-26 09:28', 'Petaling Jaya', 'Cheras', 'CedMicro', '20', '1', 1, 10),
+(88, '2021-01-26 09:31', 'Cheras', 'Petaling Jaya', 'CedMini', '20', '2.5', 1, 10),
+(89, '2021-01-26 09:37', 'Cheras', 'Petaling Jaya', 'CedMicro', '20', '14', 1, 10),
+(90, '2021-01-26 09:40', 'Bangsar', 'Petaling Jaya', 'CedMicro', '10', '13', 1, 10);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -269,7 +303,9 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 (6, 'aminah', '1234567890', 3),
 (7, 'salmah', '1234567890', 3),
 (8, 'lololol', '$2y$10$VJQUOLfZ7tmAtWF4bi.56ulP.RXqQ0PlAwZ4gqwbX9Tm.LZPDdXDi', 1),
-(0, 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOOUEhZiBeQ/4UagOFWglBN5DkArLF.jm', 3);
+(0, 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOOUEhZiBeQ/4UagOFWglBN5DkArLF.jm', 3),
+(0, 'user1', '$2y$10$7oIL/Um9pmoOd8KWgMAu8eQIdE3Gw4NtZUsbQ/l1bBeAwjsgvHyIi', 3),
+(0, 'arisya', '$2y$10$JzXFqa/iHbZe/HkUY4YKqu1ZAGpPnuI7996MlwZwAbN1jxGKnYIIq', 2);
 
 --
 -- Indexes for dumped tables
@@ -324,15 +360,58 @@ ALTER TABLE `patient`
   ADD PRIMARY KEY (`email`,`username`);
 
 --
+-- Indexes for table `ride`
+--
+ALTER TABLE `ride`
+  ADD PRIMARY KEY (`ride_id`),
+  ADD KEY `id` (`customer_user_id`);
+
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `clinic`
+--
+ALTER TABLE `clinic`
+  MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `doctor`
+--
+ALTER TABLE `doctor`
+  MODIFY `did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `manager`
+--
+ALTER TABLE `manager`
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
+
+--
+-- AUTO_INCREMENT for table `ride`
+--
+ALTER TABLE `ride`
+  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ride`
+--
+ALTER TABLE `ride`
+  ADD CONSTRAINT `id` FOREIGN KEY (`customer_user_id`) REFERENCES `user` (`user_id`);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

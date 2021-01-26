@@ -14,9 +14,7 @@ body,html{
 li:hover a {
 	 color: grey; }
 </style>
-
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-<title>Locate Us</title>
 </head><?php include "../dbconfig.php"; ?>
 <script>
 function getTown(val) {
@@ -50,9 +48,10 @@ function getDoctorday(val) {
 	});
 }
 </script>
-<!--<body style="background-image:url(../images/yellowpage.jpg);background-repeat:no-repeat;background-attachment:fixed">-->
+
+<!--<body style="background-image:url(../images/yellowpage.jpg);height: 110%; background-repeat: no-repeat;" > -->
 <body>
-<div class="header">
+	<div class="header">
 		<ul>
 			<li style="float:left;border-right:none"><a href="ulogin.php" class="logo"><img src="../images/cal.png" width="30px" height="30px"><strong> Skylabs </strong>Appointment Booking System</a></li>
 			<!-- ditambah -->
@@ -74,7 +73,7 @@ function getDoctorday(val) {
 			<button type="submit" style="position:center;margin-left:-30px" name="subd" value="Submit" class="btn btn-dark">Submit</button>
 			</div>
 		</ul>
-		<label style="font-size:20px;color:black; margin:4px;" >City:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >City:</label><br>
 		<select name="city" id="city-list" class="demoInputBox"  onChange="getTown(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select City</option>
 		<?php
@@ -89,12 +88,12 @@ function getDoctorday(val) {
 		</select>
         <br><br>
 	
-		<label style="font-size:20px;color:black; margin:4px;" >Town:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >Town:</label><br>
 		<select id="town-list" name="Town" onChange="getClinic(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Town</option>
 		</select><br><br>
 		
-		<label style="font-size:20px;color:black; margin:4px;" >Clinic:</label><br>
+		<label style="font-size:20px;color:black; margin :4px" >Clinic:</label><br>
 		<select id="clinic-list" name="Clinic" onChange="getDoctorday(this.value);" style="width:100%;height:35px;border-radius:9px">
 		<option value="">Select Clinic</option>
 		</select><br><br>
@@ -111,7 +110,7 @@ if(isset($_POST['subd']))
 		if(!empty($_POST['doctorname']))
 		{
 			$doctor=$_POST['doctorname'];
-			$sql1 = "Select * from Doctor where UPPER(name) like UPPER('%".$doctor."%')";
+			$sql1 = "Select * from doctor where UPPER(name) like UPPER('%".$doctor."%')";
 			$result1=mysqli_query($conn, $sql1);  
 			while($row1 = mysqli_fetch_array($result1))
 			{
@@ -148,7 +147,7 @@ if(isset($_POST['submit']))
 {
 		include '../dbconfig.php';
 		$cid=$_POST['Clinic'];
-		$sql1 = "Select * from Clinic where cid=$cid";
+		$sql1 = "Select * from clinic where cid=$cid";
 		$result1=mysqli_query($conn, $sql1);  
 		$row1 = mysqli_fetch_array($result1);
 		$sql2 = "Select name,gender,specialization,contact from doctor where did in (select did from doctor_availability where cid=$cid);";
@@ -162,6 +161,13 @@ if(isset($_POST['submit']))
 		echo "<p class='card-text'>Specialization: ".$row2['specialization']."</p>";
 		echo "<p class='card-text'>Doctor Contact: ".$row2['contact']."</p>"; 
 }		echo "<div>";
+
+if(isset($_POST['logout']))
+{
+	session_unset();
+	session_destroy();
+	header( "Refresh:1; url=../index.php"); 
+}
 ?>
 	</form>
 </body>
