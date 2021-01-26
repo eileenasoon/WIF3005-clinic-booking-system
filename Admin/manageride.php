@@ -93,7 +93,7 @@ body,html{
 	<div style="text-align:center">
 		<h2 style ="color:white;text-align:center">Ride Status</h2>
 	
-		<label style="font-size:20px;margin-left:10px;margin-right:5px"><b>Select Patient </b></label>
+		<label style="color:white;font-size:20px;margin-left:10px;margin-right:5px"><b>Select Patient </b></label>
 		<select name="patient" class="demoInputBox" style="padding: 7px 3px 7px 10px;width:55%;height:35px;border-radius:6px">
 		<?php
 		session_start();
@@ -115,7 +115,7 @@ if(isset($_POST['submit']))
 		
 		include '../dbconfig.php';
 		$username=$_POST['patient'];
-        $sql1 = "SELECT * FROM `book` WHERE `username`='$username'";
+        $sql1 = "SELECT * FROM `ride` WHERE `username`='$username'";
          $results1=$conn->query($sql1) or die( mysqli_error($conn));
          if(mysqli_num_rows($results1) != 0){
 			require_once("../dbconfig.php");
@@ -123,17 +123,30 @@ if(isset($_POST['submit']))
 				<form action="manageride.php" method="post">
 				<table style="margin-top:30px;margin-left: auto;margin-right: auto;width:80%;float:center">
 				<tr>
-				<th style="text-align:center">DOV</th>
-				<th style="text-align:center">Timestamp</th>
+				<th style="text-align:center">From</th>
+				<th style="text-align:center">To</th>
+				<th style="text-align:center">Cab Type</th>
+				<th style="text-align:center">Total Distance</th>
+				<th style="text-align:center">Total Fare</th>
 				<th style="text-align:center">Status</th>
 				</tr>
 <?php
 			while($rs1 = mysqli_fetch_array($results1))
 			{
+				if($rs1['status'] == 1){
+					$status = 'Available';
+				}
+				else {
+					$status = 'Not Available';
+				}
 				echo "<tr>";
-                echo '<td>'.$rs1["DOV"].'</td>'
-                .'<td>'.$rs1["Timestamp"].'</td>'
-                .'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="status[]" id="status" value="'.$rs1["Status"].'"></td></tr>' ;
+				echo'<td hidden><input hidden type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="username[]" id="username" value="'.$rs1["username"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="from_distance[]" id="from_distance" value="'.$rs1["from_distance"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="to_distance[]" id="to_distance" value="'.$rs1["to_distance"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="cab_type[]" id="cab_type" value="'.$rs1["cab_type"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_distance[]" id="total_distance" value="'.$rs1["total_distance"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_fare[]" id="total_fare" value="'.$rs1["total_fare"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="status[]" id="status" value="'.$status.'"></td></tr>' ;
 	
             }
 
@@ -153,24 +166,31 @@ if(isset($_POST['logout'])){
 }
 	require_once("../dbconfig.php");
 	if(isset($_POST['submit2'])){
-		$usrnm=$_POST["username"];
-		$fnm=$_POST["fname"];
-		$tmstmp=$_POST["timestamp"];
-		$stts=$_POST["status"];
-		$dt=$_POST["dov"];
-		$n=count($usrnm);
+		$status=$_POST["status"];
+		$username=$_POST["username"];
+		$n=count($status);
 
-	for($j=0;$j<$n;$j++){	
-		$updatequery="update book set Status='$stts[$j]' where username='$usrnm[$j]' and timestamp='$tmstmp[$j]'";
+	for($j=0;$j<$n;$j++){
+		if($status[$j] == 'Not Available' || $status[$j] == 'Cancel'){
+			$status[$j] = 2;
+		}
+		elseif($status[$j] == 'Available' || $status[$j] == 'Confirmed'){
+			$status[$j] = 1;
+		}
+		else{
+			echo '<script>alert("Please enter a valid status!!")</script>';
+			break;
+
+	}
+		$updatequery="UPDATE ride SET status= $status[$j] where username='$username[$j]'";
 		if (mysqli_query($conn, $updatequery)) {
-			echo ("<SCRIPT LANGUAGE='JavaScript'>
-			window.alert('Status succesfully updated!')
-			window.location.href='mgrmenu.php';
-			</SCRIPT>");
+			echo '<script>alert("Status succesfully updated!!")</script>';
 		} 
 		else{
 			echo '<script>alert("Error while updating. Please try again!")</script>';
 		}
+	
+
 	}
 				
 		}
