@@ -8,12 +8,12 @@ table{
     border-collapse: collapse;
 	border: 4px solid black;
     padding: 1px;
-	font-size: 25px;
+	font-size: 19px;
 }
 
 th{
-border: 1px solid black;
-	background-color:#333;
+	border: 1px solid black;
+	background-color: #333;
     color: white;
 	text-align: left;
 }
@@ -21,6 +21,8 @@ tr,td{
 	border: 1px solid black;
 	background-color: white;
     color: black;
+    padding: 7px;
+    text-align: center;
 }
 body { background:#295675 url('dreamcodes/bg_images/color/c4.jpg') no-repeat center top; height: 120%;}
 </style>
@@ -69,19 +71,19 @@ if(isset($_POST['submit']))
 				<tr>
 				<th style="text-align:center">Username</th>
 				<th style="text-align:center">First Name</th>
-				<th style="text-align:center">DOV</th>
-				<th style="text-align:center">Timestamp</th>
+				<th style="text-align:center">Appointment Date</th>
+				<th style="text-align:center">Booking Date</th>
 				<th style="text-align:center">Status</th>
 				</tr>
 <?php
 			while($rs1=$results1->fetch_assoc())
 			{
 				echo "<tr>";
-					echo  '<td><input type="text" name="username[]" id="username" value="'.$rs1["Username"].'" readonly></td>'
-					.'<td><input type="text" name="fname[]" id="fname" value="'.$rs1["Fname"].'" readonly></td>'
-					.'<td><input type="date" name="dov[]" id="dov" value="'.$rs1["DOV"].'" readonly></td>'
-					.'<td><input type="text" name="timestamp[]" id="timestamp" value="'.$rs1["Timestamp"].'" readonly></td>'
-					.'<td><input type="text" name="status[]" id="status" value="'.$rs1["Status"].'"></td></tr>' ;
+					echo  '<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="username[]" id="username" value="'.$rs1["Username"].'" readonly></td>'
+					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="fname[]" id="fname" value="'.$rs1["Fname"].'" readonly></td>'
+					.'<td><input type="date" style="border-width:0px;border:none;width:100%;text-align:right;font-size:15px" class="notcss" name="dov[]" id="dov" value="'.$rs1["DOV"].'" readonly></td>'
+					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="timestamp[]" id="timestamp" value="'.$rs1["Timestamp"].'" readonly></td>'
+					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="status[]" id="status" value="'.$rs1["Status"].'"></td></tr>' ;
 			}
 ?>		
 			</table>	
