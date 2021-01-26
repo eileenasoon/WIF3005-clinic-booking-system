@@ -106,9 +106,10 @@ function getManager(val) {
 <?php
 session_start();
 include '../dbconfig.php';
-if(isset($_POST['Submit']))
-{
-	$cid=$_POST['clinic'];
+
+function deleteManagerInClinic(){
+		include '../dbconfig.php';
+		$cid=$_POST['clinic'];
 	$mid=$_POST['manager'];
 	$sql = "DELETE FROM manager_clinic WHERE CID= $cid AND MID= $mid";
 	$sql1="update clinic set MID = 0 where MID= $mid";
@@ -131,6 +132,15 @@ if(isset($_POST['Submit']))
 				{
 					$result = "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 				}
+	}
+
+if(isset($_POST['Submit']))
+	{
+		if(!empty($_POST['city'])&&!empty($_POST['clinic'])&&!empty($_POST['manager'])){
+				deleteManagerInClinic();
+		} else {
+			echo '<script>alert("Please fill in all the columns!")</script>';
+		}
 }
 
 if(isset($_POST['logout'])){
