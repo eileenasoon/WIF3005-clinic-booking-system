@@ -1,3 +1,7 @@
+<?php 
+session_start();
+include "../dbconfig.php";
+?>
 <html>
 <head>
 <link rel="stylesheet" href="../main.css">
@@ -81,7 +85,7 @@ body {
   
 </div>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-</head><?php include "../dbconfig.php"; ?>
+</head>
 <!--<body style="background-image:url(../images/cancelback.jpg)"> -->
 <title>All Rides</title>
 <body>
@@ -112,13 +116,41 @@ body {
             <th>Ride Date ⇩</th>
             <th>Pickup Point</th>
             <th>Drop Point</th>
-            
+            <th>Cab Type</th>
             <th>Distance ⇩</th>
             
             <th>Ride Fare ⇩</th>
             <th>Status</th>
             <th>Username</th>
         </thead>
+        <tbody>
+        <?php
+        $username_session = $_SESSION['username'];
+        $sql = "SELECT * FROM ride where username = '$username_session' AND status = 2";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            ?>
+              <tr>
+                <td><?php echo $row['ride_date']; ?></td>
+                <td><?php echo $row['from_distance']; ?></td>
+                <td><?php echo $row['to_distance']; ?></td>
+                <td><?php echo $row['cab_type']; ?></td>
+                <td><?php echo $row['total_distance']; ?></td>
+                <td><?php echo $row['total_fare']; ?></td>
+                <?php if ($row['status'] == 1) { $current_status = "Available"; } else { $current_status = "Cancel"; } ?>
+                <td><?php echo $current_status; ?></td>
+                <td><?php echo $row['username']; ?></td>                
+              </tr>
+            <?php
+          }
+        }
+        $conn->close();
+
+        ?>
+        </tbody>
         <table>
         </center>
 </div>
