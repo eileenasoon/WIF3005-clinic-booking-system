@@ -17,6 +17,17 @@ html {
   margin-top: 30px;
 }
 
+.sucontainer {
+  padding: 12px;
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  top: 12%;
+  border: 2px solid white;
+  border-collapse: collapse;
+  background: grey;
+}
+
 h1 {
   text-align: center;
   color: black;
@@ -39,7 +50,7 @@ button {
   cursor: pointer;
 }
 
-input[type="submit"] {
+input[type="submit"]:not(.notcss) {
   width: 35%;
   background-color: #333;
   color: white;
@@ -53,10 +64,10 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #777;
 }
-input[type="text"],
+input[type="text"]:not(.notcss),
 input[type="password"],
-input[type="date"],
-input[type="time"],
+input[type="date"]:not(.notcss),
+input[type="time"]:not(.notcss),
 input[type="textbox"],
 input[type="number"] {
   width: 35%;
@@ -67,7 +78,7 @@ input[type="number"] {
   border-radius: 8px;
   box-sizing: border-box;
 }
-select {
+select:not(.demoInputBox) {
   width: 35%;
   /* border: 1px solid #bdbdbd; */
   margin: 8px 0;
