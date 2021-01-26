@@ -180,7 +180,7 @@
 			$datetime = date("Y-m-d h:i");
 			$id = 10;
 
-			echo $sql = "INSERT INTO ride(`ride_date`,`from_distance`,`to_distance`,`cab_type`,`total_distance`,`total_fare`,`status`,`customer_user_id`) VALUES('".$datetime."','".$pickup."','".$drop."','".$cabtype."','".$totaldist."','".$fare."',1,'".$id."')";
+			echo $sql = "INSERT INTO ride(`ride_date`,`from_distance`,`to_distance`,`cab_type`,`total_distance`,`total_fare`,`status`,`username`) VALUES('".$datetime."','".$pickup."','".$drop."','".$cabtype."','".$totaldist."','".$fare."',1,'".$username."')";
 			if (mysqli_query($conn, $sql)) 
 			{ 
 			echo '<script>alert("Booking successful!! Redirecting to appointment page...."); 

@@ -60,12 +60,15 @@
 
 <div class="sidenav">
   <a href="dashpatient.php">Dashboard</a>
+  
   <a href="usrride.php">Rides</a>
+
 </div>
 
 
   
 <div class="biggame-container">
+
         <div class="set1-container">
           <img
             class="game-icon"

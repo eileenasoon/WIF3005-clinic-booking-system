@@ -76,7 +76,9 @@ body {
 </style>
 <div class="sidenav">
   <a href="dashpatient.php">Dashboard</a>
+ 
   <a href="usrride.php">Rides</a>
+  
 </div>
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 </head><?php include "../dbconfig.php"; ?>
@@ -107,15 +109,15 @@ body {
     
   <table id="tbl3" class="container-fluid col-lg-10 mr-lg-2 table table-responsive table-hover table-bordered table-striped">
         <thead>
-            <th onclick="sortTable(0,tbl3)">Ride Date ⇩</th>
+            <th>Ride Date ⇩</th>
             <th>Pickup Point</th>
             <th>Drop Point</th>
             
-            <th onclick="sortTablen(4,tbl3)">Distance ⇩</th>
+            <th>Distance ⇩</th>
             
-            <th onclick="sortTable(6,tbl3)">Ride Fare ⇩</th>
+            <th>Ride Fare ⇩</th>
             <th>Status</th>
-            <th>User id</th>
+            <th>Username</th>
         </thead>
         <table>
         </center>
