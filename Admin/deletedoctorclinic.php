@@ -3,6 +3,7 @@
 <script src="jquerypart.js" type="text/javascript"></script>
 <title>Delete Doctor From Clinic</title>
 <link rel="stylesheet" href="../Admin/adminmain.css"> 
+<?php session_start();?>
 <script>
 function getState(val) {
 	$.ajax({
@@ -110,25 +111,31 @@ function getDoctorday(val) {
 	</form>
 	</div>
 <?php
-session_start();
 include '../dbconfig.php';
+function deleteDoctorinClinic(){
+		include '../dbconfig.php';
+		$cid=$_POST['clinic'];
+		$rest=$_POST['doctor'];
+		$sql = "DELETE FROM doctor_availability WHERE CID= $cid AND DID= $rest";
+
+		if (mysqli_query($conn, $sql))
+			{
+			echo '<script>alert("Record deleted successfully.")</script>';
+			}
+		else
+			{
+				$result =  "Error deleting record: " . mysqli_error($conn);
+			}
+	}
+
 if(isset($_POST['Submit']))
-{
-	$cid=$_POST['clinic'];
-	$rest=$_POST['doctor'];
-	$sql = "DELETE FROM doctor_availability WHERE CID= $cid AND DID= $rest";
-
-	if (mysqli_query($conn, $sql))
-		{
-		$result = "Record deleted successfully.Refreshing....";
-		header( "Refresh:2; url=deletedoctorclinic.php");
+	{
+		if(!empty($_POST['city'])&&!empty($_POST['clinic'])&&!empty($_POST['doctor'])){
+				deleteDoctorinClinic();
+		} else {
+			echo '<script>alert("Please fill in all the columns!")</script>';
 		}
-	else
-		{
-			$result =  "Error deleting record: " . mysqli_error($conn);
-		}
-
-}
+	}
 
 if(isset($_POST['logout'])){
 		session_unset();
@@ -136,6 +143,5 @@ if(isset($_POST['logout'])){
 		header( "Refresh:1; url=../index.php"); 
 	}
 ?>			
-
 </body>
 </html>

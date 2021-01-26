@@ -115,8 +115,8 @@ if(isset($_POST['logout'])){
 		session_destroy();
 		header( "Refresh:1; url=../index.php"); 
 	}
-if(isset($_POST['Submit']))
-{
+
+	function newManagerinClinic(){
 		include '../dbconfig.php';
 		$cid=$_POST['clinic'];
 		$mid=$_POST['manager'];
@@ -125,9 +125,7 @@ if(isset($_POST['Submit']))
 				$sql1="update clinic set MID=$mid where CID=$cid";
 				if (mysqli_query($conn, $sql)) 
 				{
-							echo "<h2>Record created successfully( CID=$cid MID=$mid )!!</h2>";
-							echo "Please wait...Refreshing...";
-							header( "Refresh:2; url=addmanagerclinic.php");
+							echo '<script>alert("Record created successfully, assigned the manager to the clinic.")</script>';
 
 				} 
 				else
@@ -136,17 +134,46 @@ if(isset($_POST['Submit']))
 				}
 				if (mysqli_query($conn, $sql1)) 
 				{
-							echo "<h2>Record created successfully( CID=$cid MID=$mid )in CLINIC TABLE!!</h2>";
-							echo "Please wait...Refreshing...";
-							header( "Refresh:2; url=addmanagerclinic.php");
+							$result = "<h2>Record created successfully( CID=$cid MID=$mid )in CLINIC TABLE!!</h2>";
+							$result = "Please wait...Refreshing...";
+							// header( "Refresh:2; url=addmanagerclinic.php");
 
 				} 
 				else
 				{
 					echo "Error: " . $sql1 . "<br>" . mysqli_error($conn);
 				}
-				
-}
+	}
+
+	function checkManagerinClinic()
+	{
+		include '../dbconfig.php';
+		$cid=$_POST['clinic'];
+		$mid=$_POST['manager'];
+		$sql= "SELECT * FROM manager_clinic WHERE mid = '$mid'";
+	
+		$result=mysqli_query($conn,$sql);
+	
+			if(mysqli_num_rows($result)!=0)
+		   {
+			echo '<script>alert("Manager already exists in the clinic!")</script>';
+		   }
+		else 
+			if(isset($_POST['Submit']))
+		{ 
+			newManagerinClinic();
+		}
+	
+		
+	}
+	if(isset($_POST['Submit']))
+	{
+		if(!empty($_POST['city'])&&!empty($_POST['clinic'])&&!empty($_POST['manager'])){
+				checkManagerinClinic();
+		} else {
+			echo '<script>alert("Please fill in all the columns!")</script>';
+		}
+	}
 
 ?>
 

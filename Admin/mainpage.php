@@ -75,7 +75,12 @@
         <img src="../images/hospital.png" alt="" />
         <br>
         <a href="showclinic.php">Clinic</a>
-      </div>    
+      </div>  
+      <div class="clinic-container">
+        <img src="../images/car.png" alt="" />
+        <br>
+        <a href="#">Driver and Location</a>
+      </div>  
   </div>
 
 <?php
