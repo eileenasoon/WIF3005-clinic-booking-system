@@ -14,7 +14,7 @@ table{
 
 th{
 border: 4px solid black;
-	background-color: #4CAF50;
+	background-color: #333;
     color: white;
 	text-align: left;
 }
