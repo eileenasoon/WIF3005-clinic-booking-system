@@ -171,7 +171,10 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`id`, `city`, `name`, `distance`, `total_fare`, `is_available`) VALUES
-(6, 'Kuala Lumpur', 'Cheras', '1', '3', 1);
+(6, 'Kuala Lumpur', 'Cheras', '1', '3', 1),
+(7, 'Kuala Lumpur', 'Petaling Jaya', '20', '15', 1),
+(8, 'Kuala Lumpur', 'Bangsar', '10', '10', 1),
+(9, 'Kuala Lumpur', 'Ampang', '26', '26', 1);
 
 -- --------------------------------------------------------
 
@@ -244,6 +247,35 @@ INSERT INTO `patient` (`name`, `gender`, `dob`, `contact`, `email`, `username`, 
 ('shahira', 'female', '2021-01-01', 110982921, 'sheraax1998@gmail.com', 'sheralol', '1234567890'),
 ('Sharifah Nur Asilah ', 'female', '2021-01-16', 1110742106, 'asilah2110@gmail.com', 'silzzzz', '$2y$10$HA3iPwC2jVpm5'),
 ('Eileena Soon', 'female', '2021-01-20', 1110742106, 'cashier@rezeipt.online', 'lololol', '$2y$10$VJQUOLfZ7tmAt');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ride`
+--
+
+CREATE TABLE `ride` (
+  `ride_id` int NOT NULL,
+  `ride_date` varchar(20) NOT NULL,
+  `from_distance` varchar(50) NOT NULL,
+  `to_distance` varchar(50) NOT NULL,
+  `cab_type` varchar(20) NOT NULL,
+  `total_distance` varchar(50) NOT NULL,
+  `total_fare` varchar(50) NOT NULL,
+  `status` int NOT NULL,
+  `customer_user_id` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `ride`
+--
+
+INSERT INTO `ride` (`ride_id`, `ride_date`, `from_distance`, `to_distance`, `cab_type`, `total_distance`, `total_fare`, `status`, `customer_user_id`) VALUES
+(86, '2021-01-26 09:26', 'Cheras', 'Petaling Jaya', 'CedRoyal', '20', '3.5', 1, 10),
+(87, '2021-01-26 09:28', 'Petaling Jaya', 'Cheras', 'CedMicro', '20', '1', 1, 10),
+(88, '2021-01-26 09:31', 'Cheras', 'Petaling Jaya', 'CedMini', '20', '2.5', 1, 10),
+(89, '2021-01-26 09:37', 'Cheras', 'Petaling Jaya', 'CedMicro', '20', '14', 1, 10),
+(90, '2021-01-26 09:40', 'Bangsar', 'Petaling Jaya', 'CedMicro', '10', '13', 1, 10);
 
 -- --------------------------------------------------------
 
@@ -328,6 +360,14 @@ ALTER TABLE `patient`
   ADD PRIMARY KEY (`email`,`username`);
 
 --
+-- Indexes for table `ride`
+--
+ALTER TABLE `ride`
+  ADD PRIMARY KEY (`ride_id`),
+  ADD KEY `id` (`customer_user_id`);
+
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -355,6 +395,23 @@ ALTER TABLE `location`
 ALTER TABLE `manager`
   MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
+
+--
+-- AUTO_INCREMENT for table `ride`
+--
+ALTER TABLE `ride`
+  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `ride`
+--
+ALTER TABLE `ride`
+  ADD CONSTRAINT `id` FOREIGN KEY (`customer_user_id`) REFERENCES `user` (`user_id`);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
