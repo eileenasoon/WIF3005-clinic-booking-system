@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jan 25, 2021 at 11:33 AM
--- Server version: 10.1.39-MariaDB
--- PHP Version: 7.3.5
+-- Host: 127.0.0.1
+-- Generation Time: Jan 26, 2021 at 01:30 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `book` (
+  `id` int(255) NOT NULL,
   `Username` varchar(30) NOT NULL,
   `Fname` varchar(30) NOT NULL,
   `Gender` varchar(10) NOT NULL,
@@ -36,28 +37,34 @@ CREATE TABLE `book` (
   `DID` int(5) NOT NULL,
   `DOV` date NOT NULL,
   `Timestamp` datetime NOT NULL,
-  `Status` varchar(100) NOT NULL
+  `Status` varchar(100) NOT NULL,
+  `ride_status` int(255) DEFAULT NULL,
+  `ride_id` int(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `book`
 --
 
-INSERT INTO `book` (`Username`, `Fname`, `Gender`, `CID`, `DID`, `DOV`, `Timestamp`, `Status`) VALUES
-('user', 'patient', 'male', 1, 1, '2017-11-08', '2017-11-05 16:43:48', 'lol'),
-('user', 'saya', 'female', 1, 1, '2021-01-21', '2021-01-14 19:24:41', 'apo?'),
-('silz', 'asilah', 'female', 1, 1, '2021-01-21', '2021-01-14 20:52:53', 'Cancelled by Patient'),
-('silz', 'Sharifah Nur Asilah ', 'female', 1, 1, '2021-01-19', '2021-01-14 23:02:16', 'Cancelled by Patient'),
-('lololol', 'Shahira Izwanie Sinan', 'female', 1, 1, '2021-01-25', '2021-01-24 17:11:53', 'Booking Registered.Wait for the update'),
-('lololol', 'Eileena Ariffin Soon', 'female', 2, 3, '2021-01-27', '2021-01-24 17:17:48', 'Booking Registered.Wait for the update'),
-('lololol', 'Eileena Ariffin Soon', 'female', 2, 3, '2021-01-26', '2021-01-24 18:44:14', 'Booking Registered.Wait for the update'),
-('lololol', 'Molly', 'female', 2, 3, '2021-01-28', '2021-01-24 18:56:47', 'Booking Registered.Wait for the update'),
-('lololol', 'Molly', 'female', 2, 3, '2021-01-28', '2021-01-24 18:58:19', 'Booking Registered.Wait for the update'),
-('lololol', 'Chubby', 'male', 1, 1, '2021-01-27', '2021-01-24 18:58:59', 'Booking Registered.Wait for the update'),
-('lololol', 'Bagheera', 'male', 2, 3, '2021-01-27', '2021-01-24 19:04:07', 'Booking Registered.Wait for the update'),
-('lololol', 'Bagheera', 'male', 2, 3, '2021-01-25', '2021-01-24 19:34:21', 'Booking Registered.Wait for the update'),
-('lololol', 'Bagheera', 'male', 2, 3, '2021-01-25', '2021-01-24 19:37:40', 'Booking Registered.Wait for the update'),
-('lololol', 'Arisya', 'female', 2, 3, '2021-01-28', '2021-01-24 19:38:04', 'Booking Registered.Wait for the update');
+INSERT INTO `book` (`id`, `Username`, `Fname`, `Gender`, `CID`, `DID`, `DOV`, `Timestamp`, `Status`, `ride_status`, `ride_id`) VALUES
+(1, 'user', 'patient', 'male', 1, 1, '2017-11-08', '2017-11-05 16:43:48', 'lol', NULL, NULL),
+(2, 'user', 'saya', 'female', 1, 1, '2021-01-21', '2021-01-14 19:24:41', 'apo?', NULL, NULL),
+(3, 'silz', 'asilah', 'female', 1, 1, '2021-01-21', '2021-01-14 20:52:53', 'Cancelled by Patient', NULL, NULL),
+(4, 'silz', 'Sharifah Nur Asilah ', 'female', 1, 1, '2021-01-19', '2021-01-14 23:02:16', 'Cancelled by Patient', NULL, NULL),
+(5, 'lololol', 'Shahira Izwanie Sinan', 'female', 1, 1, '2021-01-25', '2021-01-24 17:11:53', 'Not Available', NULL, NULL),
+(6, 'lololol', 'Eileena Ariffin Soon', 'female', 2, 3, '2021-01-27', '2021-01-24 17:17:48', 'Booking Registered.Wait for the update', NULL, NULL),
+(7, 'lololol', 'Eileena Ariffin Soon', 'female', 2, 3, '2021-01-26', '2021-01-24 18:44:14', 'Booking Registered.Wait for the update', NULL, NULL),
+(8, 'lololol', 'Molly', 'female', 2, 3, '2021-01-28', '2021-01-24 18:56:47', 'Booking Registered.Wait for the update', NULL, NULL),
+(9, 'lololol', 'Molly', 'female', 2, 3, '2021-01-28', '2021-01-24 18:58:19', 'Booking Registered.Wait for the update', NULL, NULL),
+(10, 'lololol', 'Chubby', 'male', 1, 1, '2021-01-27', '2021-01-24 18:58:59', 'Booking Registered.Wait for the update', NULL, NULL),
+(11, 'lololol', 'Bagheera', 'male', 2, 3, '2021-01-27', '2021-01-24 19:04:07', 'Booking Registered.Wait for the update', NULL, NULL),
+(12, 'lololol', 'Bagheera', 'male', 2, 3, '2021-01-25', '2021-01-24 19:34:21', 'Booking Registered.Wait for the update', NULL, NULL),
+(13, 'lololol', 'Bagheera', 'male', 2, 3, '2021-01-25', '2021-01-24 19:37:40', 'Booking Registered.Wait for the update', NULL, NULL),
+(14, 'lololol', 'Arisya', 'female', 2, 3, '2021-01-28', '2021-01-24 19:38:04', 'Booking Registered.Wait for the update', NULL, NULL),
+(44, 'jieun', 'Sharifah Nur Asilah ', 'female', 2, 3, '2021-01-28', '2021-01-26 10:38:42', 'Booking Registered.Wait for the update', 1, 136),
+(43, 'jieun', 'Lee Ji Eun', 'female', 2, 3, '2021-01-27', '2021-01-26 10:35:53', 'Booking Registered.Wait for the update', 1, 135),
+(45, 'jieun', 'Lee Ji Eun', 'female', 2, 3, '2021-01-28', '2021-01-26 11:49:35', 'Booking Registered.Wait for the update', 1, 137),
+(46, 'silz', 'Sharifah Nur Asilah ', 'female', 2, 3, '2021-01-27', '2021-01-26 11:54:48', 'Booking Registered.Wait for the update', 1, 138);
 
 -- --------------------------------------------------------
 
@@ -246,7 +253,9 @@ INSERT INTO `patient` (`name`, `gender`, `dob`, `contact`, `email`, `username`, 
 ('amirah', 'female', '2021-01-23', 110742106, 'amirahrozey@gmail.com', 'amirahhhh', '1234567890'),
 ('shahira', 'female', '2021-01-01', 110982921, 'sheraax1998@gmail.com', 'sheralol', '1234567890'),
 ('Sharifah Nur Asilah ', 'female', '2021-01-16', 1110742106, 'asilah2110@gmail.com', 'silzzzz', '$2y$10$HA3iPwC2jVpm5'),
-('Eileena Soon', 'female', '2021-01-20', 1110742106, 'cashier@rezeipt.online', 'lololol', '$2y$10$VJQUOLfZ7tmAt');
+('Eileena Soon', 'female', '2021-01-20', 1110742106, 'cashier@rezeipt.online', 'lololol', '$2y$10$VJQUOLfZ7tmAt'),
+('Lee Ji Eun', 'female', '1993-05-16', 1110742106, 'iu@naver.com', 'jieun', '$2y$10$WSEF8QR//GvLV'),
+('Aminah Wahab', 'female', '2021-01-26', 1110742106, 'cashier@rezeipt.online', 'aminahwaha', '$2y$10$dNIGalR2oClbn');
 
 -- --------------------------------------------------------
 
@@ -255,27 +264,29 @@ INSERT INTO `patient` (`name`, `gender`, `dob`, `contact`, `email`, `username`, 
 --
 
 CREATE TABLE `ride` (
-  `ride_id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `ride_date` varchar(20) NOT NULL,
   `from_distance` varchar(50) NOT NULL,
   `to_distance` varchar(50) NOT NULL,
   `cab_type` varchar(20) NOT NULL,
   `total_distance` varchar(50) NOT NULL,
   `total_fare` varchar(50) NOT NULL,
-  `status` int NOT NULL,
-  `customer_user_id` int DEFAULT NULL
+  `status` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ride`
 --
 
-INSERT INTO `ride` (`ride_id`, `ride_date`, `from_distance`, `to_distance`, `cab_type`, `total_distance`, `total_fare`, `status`, `customer_user_id`) VALUES
-(86, '2021-01-26 09:26', 'Cheras', 'Petaling Jaya', 'CedRoyal', '20', '3.5', 1, 10),
-(87, '2021-01-26 09:28', 'Petaling Jaya', 'Cheras', 'CedMicro', '20', '1', 1, 10),
-(88, '2021-01-26 09:31', 'Cheras', 'Petaling Jaya', 'CedMini', '20', '2.5', 1, 10),
-(89, '2021-01-26 09:37', 'Cheras', 'Petaling Jaya', 'CedMicro', '20', '14', 1, 10),
-(90, '2021-01-26 09:40', 'Bangsar', 'Petaling Jaya', 'CedMicro', '10', '13', 1, 10);
+INSERT INTO `ride` (`id`, `ride_date`, `from_distance`, `to_distance`, `cab_type`, `total_distance`, `total_fare`, `status`, `username`) VALUES
+(132, '2021-01-26 03:01', 'Ampang', 'Cheras', 'CedRoyal', '26', '18.7', 1, ''),
+(133, '2021-01-26 03:02', 'Ampang', 'Cheras', 'CedMicro', '26', '9.5', 1, ''),
+(134, '2021-01-26 03:04', 'Ampang', 'Cheras', 'CedMicro', '26', '9.5', 1, ''),
+(135, '2021-01-26 03:06', 'Ampang', 'Cheras', 'CedSUV', '26', '18.7', 1, 'amirahhhh'),
+(136, '2021-01-26 03:08', 'Ampang', 'Cheras', 'CedMini', '26', '14.8', 2, 'jieun'),
+(137, '2021-01-26 04:19', 'Ampang', 'Cheras', 'CedMini', '26', '14.8', 2, 'jieun'),
+(138, '2021-01-26 04:24', 'Ampang', 'Cheras', 'CedRoyal', '26', '18.7', 2, 'sheralol');
 
 -- --------------------------------------------------------
 
@@ -303,9 +314,11 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 (6, 'aminah', '1234567890', 3),
 (7, 'salmah', '1234567890', 3),
 (8, 'lololol', '$2y$10$VJQUOLfZ7tmAtWF4bi.56ulP.RXqQ0PlAwZ4gqwbX9Tm.LZPDdXDi', 1),
-(0, 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOOUEhZiBeQ/4UagOFWglBN5DkArLF.jm', 3),
-(0, 'user1', '$2y$10$7oIL/Um9pmoOd8KWgMAu8eQIdE3Gw4NtZUsbQ/l1bBeAwjsgvHyIi', 3),
-(0, 'arisya', '$2y$10$JzXFqa/iHbZe/HkUY4YKqu1ZAGpPnuI7996MlwZwAbN1jxGKnYIIq', 2);
+(9, 'eileenasoo', '$2y$10$IdcoBODBHMwGfKNugia8lOOUEhZiBeQ/4UagOFWglBN5DkArLF.jm', 3),
+(10, 'user1', '$2y$10$7oIL/Um9pmoOd8KWgMAu8eQIdE3Gw4NtZUsbQ/l1bBeAwjsgvHyIi', 3),
+(11, 'arisya', '$2y$10$JzXFqa/iHbZe/HkUY4YKqu1ZAGpPnuI7996MlwZwAbN1jxGKnYIIq', 2),
+(12, 'jieun', '$2y$10$WSEF8QR//GvLVNdXwhPQNe.hKP3RqUV3dk4CVyhM7YcPTuha6R4UG', 1),
+(13, 'aminahwaha', '$2y$10$dNIGalR2oClbnzUlyAscn.WIaIQOpQrW2lV72QN5DmytdFbEcRu0y', 1);
 
 --
 -- Indexes for dumped tables
@@ -315,7 +328,8 @@ INSERT INTO `user` (`id`, `username`, `password`, `role`) VALUES
 -- Indexes for table `book`
 --
 ALTER TABLE `book`
-  ADD PRIMARY KEY (`Username`,`Fname`,`DOV`,`Timestamp`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ride_id` (`ride_id`);
 
 --
 -- Indexes for table `clinic`
@@ -363,13 +377,24 @@ ALTER TABLE `patient`
 -- Indexes for table `ride`
 --
 ALTER TABLE `ride`
-  ADD PRIMARY KEY (`ride_id`),
-  ADD KEY `id` (`customer_user_id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`);
 
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `book`
+--
+ALTER TABLE `book`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `clinic`
@@ -387,31 +412,26 @@ ALTER TABLE `doctor`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `manager`
 --
 ALTER TABLE `manager`
   MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
 
 --
 -- AUTO_INCREMENT for table `ride`
 --
 ALTER TABLE `ride`
-  MODIFY `ride_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `user`
 --
-
---
--- Constraints for table `ride`
---
-ALTER TABLE `ride`
-  ADD CONSTRAINT `id` FOREIGN KEY (`customer_user_id`) REFERENCES `user` (`user_id`);
-
+ALTER TABLE `user`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
