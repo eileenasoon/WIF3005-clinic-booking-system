@@ -116,10 +116,14 @@ function getDay(val) {
 		<option value="">Select Doctor</option>
 		</select><br><br>
 		
-		
+
 		<label style="color:black" ><b>Date of Visit</b></label><br>
 		<input type="date" name="dov" onChange="getDay(this.value);" min="<?php echo date('Y-m-d');?>" max="<?php echo date('Y-m-d',strtotime('+7 day'));?>" required><br><br>
 		<div id="datestatus"> </div>
+
+		<label style="color:black" ><b>Do you need to book a ride to the clinic?</b></label><br><br>
+		<input type="radio" name="bookride" value="yes">Yes
+		<input type="radio" name="bookride" value="no">No <br><br>
 		
 		<div class="container">
 			<button type="submit" style="float:right" name="submit" value="Submit">Submit</button>
@@ -128,7 +132,7 @@ function getDay(val) {
 // session_start();
 if(isset($_POST['submit']))
 {
-		
+	
 		include '../dbconfig.php';
 		$fname=$_POST['fname'];
 		$gender=$_POST['gender'];
@@ -162,15 +166,28 @@ if(isset($_POST['submit']))
 			}
 			else
 			{
-				if (mysqli_query($conn, $sql)) 
-				{ 
-				echo '<script>alert("Booking successful!! Redirecting to home page...."); 
-				  window.location.href="ulogin.php";</script>';
+				if($_POST['bookride'] == 'no') {
+					if (mysqli_query($conn, $sql)) 
+					{ 
+					echo '<script>alert("Booking successful!! Redirecting to appointment page...."); 
+					window.location.href="viewpatientappointments.php";</script>';
 
-				 } 
-				else
-				{
-					echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					} 
+					else
+					{
+						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					}
+				} else {
+					if (mysqli_query($conn, $sql)) 
+					{ 
+					echo '<script>alert("Redirecting to book ride page...."); 
+					window.location.href="bookDriver.php";</script>';
+
+					} 
+					else
+					{
+						echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+					}
 				}
 			}
 		}
