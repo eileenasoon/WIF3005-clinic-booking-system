@@ -2,7 +2,8 @@
 <head>
 	<link rel="stylesheet" href="../main.css">
 	<title>Home</title>
-	<?php include "../dbconfig.php"; session_start(); ?>
+	<?php session_start(); include "../dbconfig.php";?>
+
 </head>
 <body style ="background-image:url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c4.jpg);">
 <div class="header">
@@ -20,7 +21,6 @@
 <form action="bookDriver.php" method="post">
 	<!--<div class="sucontainer" style="background-image:url(images/bookback.jpg)"> -->
 	<div class="sucontainer" style="background-color:white; border: 2px solid black; border-radius: 5px; padding: 12px 20px; left:25%; right:25%;">
-
 	<h2 style="text-align: center">Book a Ride</h2>
 		<hr><br>
 
@@ -71,9 +71,8 @@
 
 		if(isset($_POST['submit']))
 		{ 
-			
-			$username=$_SESSION['username'];
 			include('adminwrk.php');
+			$username = $_SESSION['username'];  
 			$pickup = $_POST['pickup'];
 			$drop = $_POST['drop'];
 			$cabtype = $_POST['cabtype'];
@@ -176,11 +175,12 @@
 
 			date_default_timezone_set('Asia/Kuala_Lumpur');
 			$datetime = date("Y-m-d h:i");
-			$id = 10;
 
-			$sql = "INSERT INTO ride(`ride_date`,`from_distance`,`to_distance`,`cab_type`,`total_distance`,`total_fare`,`status`,`username`) VALUES('".$datetime."','".$pickup."','".$drop."','".$cabtype."','".$totaldist."','".$fare."',1,'".$username."')";
 
-			if (mysqli_query($conn, $sql)) 
+			$sql = "INSERT INTO ride(`ride_date`,`from_distance`,`to_distance`,`cab_type`,`total_distance`,`total_fare`,`status`,`username`) VALUES('".$datetime."','".$pickup."','".$drop."','".$cabtype."','".$totaldist."','".$fare."',1,'".$username."'); 
+			SET @last_id_in_ride = LAST_INSERT_ID();
+			UPDATE book set ride_id = @last_id_in_ride, ride_status = 1 ORDER BY `id` DESC LIMIT 1";  
+			if (mysqli_multi_query($conn, $sql)) 
 			{ 
 
 				$last_id = $conn->insert_id;
