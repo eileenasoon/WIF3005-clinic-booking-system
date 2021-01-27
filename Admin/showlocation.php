@@ -118,7 +118,7 @@ function getLocation(val) {
         while($row = mysqli_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $row['city'] . "</td>";
-            echo "<td>" . $row['locationname'] . "</td>";
+            echo "<td>" . $row['name'] . "</td>";
             echo "<td><center>" . $row['distance'] . "KM</td></center>";
             echo "<td><center>RM" . $row['total_fare'] . "</td></center>";
             echo "</tr>";

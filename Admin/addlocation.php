@@ -123,7 +123,7 @@ function alocation()
             $fare = isset($_POST['fare'])?$_POST['fare']:'';
             $available = isset($_POST['available'])?$_POST['available']:'';
 
-            $sql = "INSERT INTO location(`city`, `locationname`, `distance`, `total_fare`, `is_available`) VALUES('".$city."', '".$location."', '".$distance."', '".$fare."', '".$available."')";
+            $sql = "INSERT INTO location(`city`, `name`, `distance`, `total_fare`, `is_available`) VALUES('".$city."', '".$location."', '".$distance."', '".$fare."', '".$available."')";
             
             if (mysqli_query($conn, $sql)) 
 		    {
