@@ -117,9 +117,9 @@ body {
             <th>Pickup Point</th>
             <th>Drop Point</th>
             <th>Cab Type</th>
-            <th>Distance ⇩</th>
+            <th>Distance (KM)</th>
             
-            <th>Ride Fare ⇩</th>
+            <th>Ride Fare (RM)</th>
             <th>Status</th>
             <th>Username</th>
         </thead>
