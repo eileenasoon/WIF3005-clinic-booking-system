@@ -182,14 +182,8 @@
 			UPDATE book set ride_id = @last_id_in_ride, ride_status = 1 ORDER BY `id` DESC LIMIT 1";  
 			if (mysqli_multi_query($conn, $sql)) 
 			{ 
-
-				$last_id = $conn->insert_id;
-				$sql = "UPDATE book set ride_id = $last_id, ride_status = 1 ORDER BY `id` DESC LIMIT 1";
-				mysqli_query($conn, $sql);
-
 				echo '<script>alert("Booking successful!! Redirecting to appointment page...."); 
-			 window.location.href="viewpatientappointments.php";</script>';
-
+				window.location.href="viewpatientappointments.php";</script>';
 			 } 
 			else
 			{
