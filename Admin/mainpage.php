@@ -79,7 +79,7 @@
       <div class="clinic-container">
         <img src="../images/car.png" alt="" />
         <br>
-        <a href="#">Driver and Location</a>
+        <a href="ridelocation.php">Rides and Location</a>
       </div>  
   </div>
 
