@@ -2,9 +2,9 @@
 session_start();
 include "../dbconfig.php";
 if (isset($_GET['function'])) {
-  $idcancel = $_GET['id'];
+  $idcancel = $_GET['ride_id'];
 
-  $sql = "UPDATE ride SET status='2' WHERE id=$idcancel";
+  $sql = "UPDATE ride SET status='2' WHERE ride_id=$idcancel";
 
   if ($conn->query($sql) === TRUE) {
     echo '<script>alert("Ride Cancelled successfully!");
@@ -167,7 +167,7 @@ body {
                 <td style="text-align:center"><?php echo $current_status; ?></td>
                 <td style="text-align:center"><?php echo $row['username']; ?></td>
                 <?php if ($row['status'] == 1) {  ?>
-                  <td style="text-align:center; background-color:yellow" ><a href="usrride.php?function=cancel&id=<?php echo $row['id']; ?>" style="color:black">Cancel</a></td>
+                  <td style="text-align:center; background-color:yellow" ><a href="usrride.php?function=cancel&ride_id=<?php echo $row['ride_id']; ?>" style="color:black">Cancel</a></td>
                 <?php } else { ?>
                   <td style="text-align:center">N/A</td>
                 <?php } ?>
