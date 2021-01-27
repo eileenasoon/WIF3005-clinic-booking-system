@@ -24,7 +24,7 @@ tr,td{
     text-align: center;
 }
 body,html{
-	background-image:url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c4.jpg); 
+	background-image:url(../images/doctordesk.jpg);
 	background-repeat: no-repeat; 
 	background-attachment: fixed;
 	background-size: cover;
@@ -88,12 +88,12 @@ body,html{
     </ul>
 </div>
 	
-
+<div class="container">
 <form action="manageride.php" method="post">
 	<div style="text-align:center">
-		<h2 style ="color:white;text-align:center">Ride Status</h2>
+		<h2 style ="color:black;text-align:center">Ride Status</h2><hr>
 	
-		<label style="color:white;font-size:20px;margin-left:10px;margin-right:5px"><b>Select Patient </b></label>
+		<label style="color:black;font-size:20px;margin-left:10px;margin-right:5px"><b>Select Patient </b></label>
 		<select name="patient" class="demoInputBox" style="padding: 7px 3px 7px 10px;width:55%;height:35px;border-radius:6px">
 		<?php
 		session_start();
@@ -195,6 +195,7 @@ if(isset($_POST['logout'])){
 				
 		}
 ?>
-	
+</div>
+</div>	
 </body>
 </html>
