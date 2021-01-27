@@ -46,6 +46,12 @@
                     <a href="showlocation.php">Show All Location</a>
                   </div>
           </li>
+          <li class="dropdown" style="margin-top:13px">    
+                <a href="javascript:void(0)" class="dropbtn">Ride</a>
+                  <div class="dropdown-content">
+                  <a href="manageride.php">Manage Ride</a>
+                  </div>
+          </li>
           <li  style="float:right; border-right:none; margin-top:13px"><a name="logout" href=../index.php>Logout</a></li>
 				</ul>
 </div>
@@ -69,7 +75,12 @@
         <img src="../images/hospital.png" alt="" />
         <br>
         <a href="showclinic.php">Clinic</a>
-      </div>    
+      </div>  
+      <div class="clinic-container">
+        <img src="../images/car.png" alt="" />
+        <br>
+        <a href="#">Driver and Location</a>
+      </div>  
   </div>
 
 <?php
