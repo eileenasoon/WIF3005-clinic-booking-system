@@ -135,8 +135,8 @@ if(isset($_POST['logout'])){
 		session_destroy();
 		header( "Refresh:1; url=../index.php"); 
 }
-if(isset($_POST['Submit']))
-{
+
+function newDoctorinClinic(){
 		include '../dbconfig.php';
 		$cid=$_POST['clinic'];
 		$did=$_POST['doctor'];
@@ -148,14 +148,23 @@ if(isset($_POST['Submit']))
 				$sql = "INSERT INTO doctor_availability (CID, DID, Day, Starttime, Endtime) VALUES ('$cid','$did','$daylist','$starttime','$endtime')";
 				if (mysqli_query($conn, $sql)) 
 				{
-					$result = "<h2>Record created successfully( CID=$cid DID=$did Day=$daylist )!!</h2>";
+					echo '<script>alert("Record created successfully, added the doctor to the clinic.")</script>';
 				} 
 				else
 				{
 					$result = "Error: " . $sql . "<br>" . mysqli_error($conn);
 				}
 		}
-}
+	}
+
+	if(isset($_POST['Submit']))
+	{
+		if(!empty($_POST['city'])&&!empty($_POST['clinic'])&&!empty($_POST['doctor'])&&!empty($_POST['starttime'])&&!empty($_POST['endtime'])&&!empty($_POST['daylist'])){
+				newDoctorinClinic();
+		} else {
+			echo '<script>alert("Please fill in all the columns!")</script>';
+		}
+	}
 
 ?>
 
