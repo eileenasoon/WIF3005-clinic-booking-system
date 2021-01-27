@@ -149,8 +149,8 @@ if(isset($_POST['submit']))
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="from_distance[]" id="from_distance" value="'.$rs1["from_distance"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="to_distance[]" id="to_distance" value="'.$rs1["to_distance"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="cab_type[]" id="cab_type" value="'.$rs1["cab_type"].'" readonly></td>'
-				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_distance[]" id="total_distance" value="'.$rs1["total_distance"].'" readonly></td>'
-				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_fare[]" id="total_fare" value="'.$rs1["total_fare"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_distance[]" id="total_distance" value="'.$rs1["total_distance"].' KM" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_fare[]" id="total_fare" value="RM '.$rs1["total_fare"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="status[]" id="status" value="'.$status.'"></td></tr>' ;
 	
             }

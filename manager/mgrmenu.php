@@ -83,11 +83,13 @@ if(isset($_POST['submit']))
 <?php
 			while($rs1=$results1->fetch_assoc())
 			{
+				$bookingdate = new DateTime($rs1['Timestamp']);
+				$formattedbookingdate = date_format($bookingdate, 'd/m/Y');
 				echo "<tr>";
 					echo  '<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="username[]" id="username" value="'.$rs1["Username"].'" readonly></td>'
 					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="fname[]" id="fname" value="'.$rs1["Fname"].'" readonly></td>'
 					.'<td><input type="date" style="border-width:0px;border:none;width:100%;text-align:right;font-size:15px" class="notcss" name="dov[]" id="dov" value="'.$rs1["DOV"].'" readonly></td>'
-					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="timestamp[]" id="timestamp" value="'.$rs1["Timestamp"].'" readonly></td>'
+					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="timestamp[]" id="timestamp" value="'.$formattedbookingdate.'" readonly></td>'
 					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="status[]" id="status" value="'.$rs1["Status"].'"></td></tr>' ;
 			}
 ?>		
