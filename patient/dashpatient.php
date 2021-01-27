@@ -72,7 +72,7 @@
         <div class="set1-container">
           <img
             class="game-icon"
-            src="https://www.nicepng.com/png/full/29-291506_car-emoji-icon-fiat-500-icon.png"
+            src="https://wprock.fr/wp-content/themes/wprock-theme/img/emoji/joypixels/512/1f697.png"
             alt=""
           />
           <br /><br>
