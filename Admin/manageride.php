@@ -123,6 +123,7 @@ if(isset($_POST['submit']))
 				<form action="manageride.php" method="post">
 				<table style="margin-top:30px;margin-left: auto;margin-right: auto;width:80%;float:center">
 				<tr>
+				<th style="text-align:center">Date</th>
 				<th style="text-align:center">From</th>
 				<th style="text-align:center">To</th>
 				<th style="text-align:center">Cab Type</th>
@@ -133,19 +134,23 @@ if(isset($_POST['submit']))
 <?php
 			while($rs1 = mysqli_fetch_array($results1))
 			{
+				$ridedate = new DateTime($rs1['ride_date']);
+				$formattedridedate = date_format($ridedate, 'd-m-Y');
 				if($rs1['status'] == 1){
 					$status = 'Available';
 				}
 				else {
-					$status = 'Not Available';
+					$status = 'Cancelled';
 				}
 				echo "<tr>";
 				echo'<td hidden><input hidden type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="username[]" id="username" value="'.$rs1["username"].'" readonly></td>'
+				.'<td hidden><input hidden type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="id[]" id="id" value="'.$rs1["id"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="ride_date[]" id="ride_date" value="'.$formattedridedate.'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="from_distance[]" id="from_distance" value="'.$rs1["from_distance"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="to_distance[]" id="to_distance" value="'.$rs1["to_distance"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="cab_type[]" id="cab_type" value="'.$rs1["cab_type"].'" readonly></td>'
-				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_distance[]" id="total_distance" value="'.$rs1["total_distance"].'" readonly></td>'
-				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_fare[]" id="total_fare" value="'.$rs1["total_fare"].'" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_distance[]" id="total_distance" value="'.$rs1["total_distance"].' KM" readonly></td>'
+				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="total_fare[]" id="total_fare" value="RM '.$rs1["total_fare"].'" readonly></td>'
 				.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:19px" class="notcss" name="status[]" id="status" value="'.$status.'"></td></tr>' ;
 	
             }
@@ -168,7 +173,8 @@ if(isset($_POST['logout'])){
 	if(isset($_POST['submit2'])){
 		$status=$_POST["status"];
 		$username=$_POST["username"];
-		$n=count($status);
+		$id=$_POST["id"];
+		$n=count($id);
 
 	for($j=0;$j<$n;$j++){
 		if($status[$j] == 'Not Available' || $status[$j] == 'Cancel'){
@@ -182,16 +188,20 @@ if(isset($_POST['logout'])){
 			break;
 
 	}
-		$updatequery="UPDATE ride SET status= $status[$j] where username='$username[$j]'";
-		if (mysqli_query($conn, $updatequery)) {
-			echo '<script>alert("Status succesfully updated!!")</script>';
+		$updatequery="UPDATE ride SET status= $status[$j] where id='$id[$j]' AND username='$username[$j]'";
+
+		if (mysqli_multi_query($conn, $updatequery)) {
+			echo ("<SCRIPT LANGUAGE='JavaScript'>
+			window.alert('Status succesfully updated!')
+			window.location.href='manageride.php';
+			</SCRIPT>");
 		} 
 		else{
 			echo '<script>alert("Error while updating. Please try again!")</script>';
 		}
 	
-
 	}
+	
 				
 		}
 ?>

@@ -8,7 +8,7 @@ table{
     border-collapse: collapse;
 	border: 4px solid black;
     padding: 1px;
-	font-size: 19px;
+	font-size: 17px;
 }
 
 th{
@@ -21,10 +21,16 @@ tr,td{
 	border: 1px solid black;
 	background-color: white;
     color: black;
-    padding: 7px;
+    padding: 0px;
     text-align: center;
 }
-body { background:#295675 url('dreamcodes/bg_images/color/c4.jpg') no-repeat center top; height: 120%;}
+body,html { 	
+	background-image:url(http://www.dreamtemplate.com/dreamcodes/bg_images/color/c4.jpg); 
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 150%;
+}
 </style>
 
 <body>
@@ -42,12 +48,11 @@ body { background:#295675 url('dreamcodes/bg_images/color/c4.jpg') no-repeat cen
 		<select name="doctor" id="doctor-list" class="demoInputBox" style="padding: 7px 3px 7px 10px;width:55%;height:35px;border-radius:6px">
 		<?php
 		session_start();
-		$mid=$_SESSION['mgrid'];
-		$sql1="SELECT * FROM doctor where did in(select did from doctor_availability where cid in (select cid from manager_clinic where mid=$mid));";
+		$sql1="SELECT * FROM doctor";
          $results=$conn->query($sql1); 
 		while($rs=$results->fetch_assoc()) { 
 		?>
-		<option value="<?php echo $rs["did"]; ?>"><?php echo "Dr. ".$rs["name"]; ?></option>
+		<option value="<?php echo $rs["did"]; ?>"><?php echo "Dr. ".$rs["name"]." - ".$rs["region"]; ?></option>
 		<?php
 		}
 		?>
@@ -61,10 +66,10 @@ if(isset($_POST['submit']))
 		
 		include '../dbconfig.php';
 		$did=$_POST['doctor'];
-		$cid=1;
-		$sql1 = "select * from book where DID= $did AND CID= $cid order by Timestamp ASC";
+		$sql1 = "select * from book where DID= $did order by Timestamp ASC";
 		 $results1=$conn->query($sql1); 
 			require_once("../dbconfig.php");
+			if(mysqli_num_rows($results1) != 0){
 ?>			
 				<form action="mgrmenu.php" method="post">
 				<table style="margin-top:30px;margin-left: auto;margin-right: auto;width:80%;float:center">
@@ -78,17 +83,23 @@ if(isset($_POST['submit']))
 <?php
 			while($rs1=$results1->fetch_assoc())
 			{
+				$bookingdate = new DateTime($rs1['Timestamp']);
+				$formattedbookingdate = date_format($bookingdate, 'd/m/Y');
 				echo "<tr>";
 					echo  '<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="username[]" id="username" value="'.$rs1["Username"].'" readonly></td>'
 					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="fname[]" id="fname" value="'.$rs1["Fname"].'" readonly></td>'
 					.'<td><input type="date" style="border-width:0px;border:none;width:100%;text-align:right;font-size:15px" class="notcss" name="dov[]" id="dov" value="'.$rs1["DOV"].'" readonly></td>'
-					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="timestamp[]" id="timestamp" value="'.$rs1["Timestamp"].'" readonly></td>'
+					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="timestamp[]" id="timestamp" value="'.$formattedbookingdate.'" readonly></td>'
 					.'<td><input type="text" style="border-width:0px;border:none;width:100%;text-align:center;font-size:15px" class="notcss" name="status[]" id="status" value="'.$rs1["Status"].'"></td></tr>' ;
 			}
 ?>		
 			</table>	
 			<button type="submit" style="margin-top:30px;position:center" name="submit2" value="Submit">Submit Changes</button></form>		
 <?php
+			}
+			else{
+				echo '<script>alert("The doctor has no appointment booking!")</script>';
+			}
 }
 if(isset($_POST['logout'])){
 	session_unset();
