@@ -113,15 +113,15 @@ body {
     
   <table id="tbl3" class="container-fluid col-lg-10 mr-lg-2 table table-responsive table-hover table-bordered table-striped">
         <thead>
-            <th>Ride Date ⇩</th>
-            <th>Pickup Point</th>
-            <th>Drop Point</th>
-            <th>Cab Type</th>
-            <th>Distance (KM)</th>
+            <th style="text-align:center">Ride Date ⇩</th>
+            <th style="text-align:center">Pickup Point</th>
+            <th style="text-align:center">Drop Point</th>
+            <th style="text-align:center">Cab Type</th>
+            <th style="text-align:center">Distance (KM)</th>
             
-            <th>Ride Fare (RM)</th>
-            <th>Status</th>
-            <th>Username</th>
+            <th style="text-align:center">Ride Fare (RM)</th>
+            <th style="text-align:center">Status</th>
+            <th style="text-align:center">Username</th>
         </thead>
         <tbody>
         <?php
@@ -134,15 +134,15 @@ body {
           while($row = $result->fetch_assoc()) {
             ?>
               <tr>
-                <td><?php echo $row['ride_date']; ?></td>
-                <td><?php echo $row['from_distance']; ?></td>
-                <td><?php echo $row['to_distance']; ?></td>
-                <td><?php echo $row['cab_type']; ?></td>
-                <td><?php echo $row['total_distance']; ?></td>
-                <td><?php echo $row['total_fare']; ?></td>
+                <td style="text-align:center"><?php echo $row['ride_date']; ?></td>
+                <td style="text-align:center"><?php echo $row['from_distance']; ?></td>
+                <td style="text-align:center"><?php echo $row['to_distance']; ?></td>
+                <td style="text-align:center"><?php echo $row['cab_type']; ?></td>
+                <td style="text-align:center"><?php echo $row['total_distance']; ?></td>
+                <td style="text-align:center"><?php echo $row['total_fare']; ?></td>
                 <?php if ($row['status'] == 1) { $current_status = "Available"; } else { $current_status = "Cancel"; } ?>
-                <td><?php echo $current_status; ?></td>
-                <td><?php echo $row['username']; ?></td>                
+                <td style="text-align:center"><?php echo $current_status; ?></td>
+                <td style="text-align:center"><?php echo $row['username']; ?></td>                
               </tr>
             <?php
           }
